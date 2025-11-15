@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anyone Can Cook, Inc.</title>
-    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     <style>
@@ -51,15 +50,12 @@
 <body class="text-gray-800">
 
     <div id="app" class="main-content flex flex-col items-center justify-center p-4 sm:p-8">
-        <!-- Content will be rendered here by JavaScript -->
-    </div>
+        </div>
 
-    <!-- Footer -->
     <footer class="bg-gray-100 py-6 px-4 w-full border-t border-gray-200">
         <div class="max-w-4xl mx-auto">
             <h3 class="text-lg font-semibold mb-3">Our Locations</h3>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 text-sm">
-                <!-- Location links open Google Maps search -->
                 <a href="https://www.google.com/maps/search/Purple+Oven+Temple+Drive" target="_blank" class="text-gray-600 hover:text-purple-oven transition duration-150 rounded-md">Temple Drive</a>
                 <a href="https://www.google.com/maps/search/Purple+Oven+Portico" target="_blank" class="text-gray-600 hover:text-purple-oven transition duration-150 rounded-md">Portico</a>
                 <a href="https://www.google.com/maps/search/Purple+Oven+Scout+Rallos" target="_blank" class="text-gray-600 hover:text-purple-oven transition duration-150 rounded-md">Scout Rallos</a>
@@ -71,7 +67,7 @@
                 <a href="https://www.google.com/maps/search/Purple+Oven+Santa+Rosa+Laguna" target="_blank" class="text-gray-600 hover:text-purple-oven transition duration-150 rounded-md">Santa Rosa - Laguna</a>
             </div>
             <div class="mt-4 text-center text-xs text-gray-500">
-                &copy; 2025 Purple Oven. All rights reserved.
+                © 2025 Purple Oven. All rights reserved.
             </div>
         </div>
     </footer>
@@ -79,7 +75,7 @@
     <script>
         // --- Global State and Constants ---
         const APP_ROOT = document.getElementById('app');
-        // Email address for advance order inquiries - UPDATED
+        // Email address for advance order inquiries - CONFIRMED
         const ORDER_EMAIL = "orderonline@purpleoven.com.ph"; 
 
         // Logo and Menu File Paths (User must upload these files to the same directory)
@@ -98,21 +94,21 @@
                 theme: 'black-white',
                 description: 'Gourmet home-cooked meals, specializing in comfort food classics.',
                 logo: GOFFA_LOGO_URL,
-                // Reverted to PDF files
+                // Using PDF files as requested
                 menuFile: 'Goffa_Boxed_Orders.pdf' 
             },
             PurpleOven: {
                 theme: 'purple-white',
                 description: 'The finest baked goods, cakes, and pastries, known for their quality.',
                 logo: PO_LOGO_URL,
-                // Reverted to PDF files
+                // Using PDF files as requested
                 menuFile: 'PO_Menu.pdf' 
             },
             VillageCook: {
                 theme: 'black-white',
                 description: 'Everyday meals and catering services with a focus on fresh, local ingredients.',
                 logo: VC_LOGO_URL,
-                // Reverted to PDF files
+                // Using PDF files as requested
                 menuFile: 'Village_Cook_Menu.pdf' 
             }
         };
@@ -151,7 +147,6 @@
         function renderLanding() {
             return `
                 <div class="text-center">
-                    <!-- Main Logo: Increased size h-48 w-64 -->
                     <img src="${MAIN_LOGO_URL}" onerror="this.src='https://placehold.co/300x100/333/fff?text=Anyone+Can+Cook'" 
                          alt="Anyone Can Cook, Inc. Logo" class="mx-auto mb-8 h-48 w-64 object-contain">
                     
@@ -159,7 +154,6 @@
                         Anyone Can Cook, Inc.
                     </h1>
                     
-                    <!-- Updated warmer message -->
                     <p class="text-xl text-gray-500 mb-12">Welcome! Find your next delicious meal by choosing one of our kitchens below.</p>
 
                     <div class="flex flex-col md:flex-row justify-center space-y-8 md:space-y-0 md:space-x-12">
@@ -171,11 +165,9 @@
                                 <div onclick="showMenu('${brand}')" 
                                      class="cursor-pointer p-6 rounded-xl shadow-lg transition duration-300 transform hover:scale-105 w-full max-w-xs md:w-56 ${logoClass}">
                                     <div class="flex justify-center mb-4">
-                                        <!-- Subsidiary Logo: Increased size h-24 w-24 -->
                                         <img src="${brandData.logo}" onerror="this.src='https://placehold.co/64x64/eee/333?text=${brand}'" 
                                              alt="${brand} Logo" class="h-24 w-24 object-contain">
                                     </div>
-                                    <!-- Brand description -->
                                     <p class="text-sm text-gray-500">${brandData.description}</p>
                                 </div>
                             `;
@@ -197,16 +189,12 @@
             const menuSrc = `${menuFile}#toolbar=0`; 
 
             const menuContent = `
-                <!-- Logo and Upper Right Button -->
                 <div class="flex justify-between items-center mb-4">
-                    <!-- Brand Logo centered -->
                     <div class="flex-1"></div>
-                    <!-- Subsidiary Logo: Increased size h-20 w-20 -->
                     <img src="${data.logo}" 
                          onerror="this.src='https://placehold.co/80x80/eee/333?text=${brand}'" 
                          alt="${brand} Logo" class="h-20 w-20 object-contain mx-auto">
                     
-                    <!-- ADVANCE ORDER BUTTON (Upper Right) -->
                     <div class="flex-1 flex justify-end">
                         <button onclick="showOrder()"
                                 class="px-6 py-2 text-base font-semibold text-white rounded-full transition duration-300 shadow-xl ${buttonClass}">
@@ -215,9 +203,7 @@
                     </div>
                 </div>
 
-                <!-- Scrollable Menu PDF Container (Styled to look like a clean document) -->
                 <div class="h-[600px] w-full border ${themeClass} rounded-xl overflow-y-auto menu-scroll shadow-inner bg-gray-50">
-                    <!-- Using <embed> for a cleaner, scrollable, in-line PDF display -->
                     <embed src="${menuSrc}" 
                            type="application/pdf" 
                            width="100%" 
@@ -227,12 +213,10 @@
                            title="${brand} Menu Document">
                 </div>
                 
-                <!-- Lower Left (Back) and Lower Right (Advance Order) Buttons -->
                 <div class="mt-8 flex justify-between items-center">
                     <button onclick="showLanding()" class="text-sm font-medium text-gray-500 hover:text-gray-700 transition duration-150 rounded-md">
-                        &larr; Back to Subsidiaries
+                        ← Back to Subsidiaries
                     </button>
-                    <!-- ADVANCE ORDER BUTTON (Lower Right) -->
                     <button onclick="showOrder()"
                             class="px-6 py-2 text-base font-semibold text-white rounded-full transition duration-300 shadow-md ${buttonClass} shadow-lg">
                         Advance Order
@@ -274,7 +258,6 @@
                         </p>
                     </div>
 
-                    <!-- Option 1: Call Us -->
                     <div class="mb-8 border-b pb-6">
                         <h2 class="text-xl font-semibold mb-3">Option 1: Call Us</h2>
                         <p class="text-gray-600 mb-2">For immediate assistance or to discuss your order, please give us a call.</p>
@@ -283,19 +266,16 @@
                         </a>
                     </div>
 
-                    <!-- Option 2: Send an Inquiry Form -->
                     <form id="orderForm" onsubmit="handleFormSubmission(event)">
                         <h2 class="text-xl font-semibold mb-4">Option 2: Send an Inquiry</h2>
                         <p class="text-gray-600 mb-6">Fill out the form below to send us an order inquiry. We will contact you to confirm details.</p>
 
-                        <!-- Personal Details -->
                         <div class="form-grid">
                             <input type="text" name="fullName" placeholder="Full Name *" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
                             <input type="email" name="email" placeholder="Email *" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
                             <input type="tel" name="phone" placeholder="Phone Number *" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
                         </div>
 
-                        <!-- Date/Time Details -->
                         <div class="form-grid mt-4">
                             <input type="date" name="dateNeeded" placeholder="Date Needed *" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
                             <select name="timeNeeded" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
@@ -304,7 +284,6 @@
                             </select>
                         </div>
 
-                        <!-- Order For Checkboxes -->
                         <div class="mt-6">
                             <label class="block text-sm font-medium mb-2">Order For: *</label>
                             <div class="flex flex-wrap gap-4">
@@ -319,7 +298,6 @@
                             </div>
                         </div>
 
-                        <!-- Order Summary -->
                         <div class="mt-6">
                             <label for="orderSummary" class="block text-sm font-medium mb-2">Order Summary: *</label>
                             <textarea id="orderSummary" name="orderSummary" rows="4" required
@@ -327,7 +305,6 @@
                                       class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent"></textarea>
                         </div>
 
-                        <!-- Order Type (Pick Up / Delivery) -->
                         <div class="mt-6">
                             <label class="block text-sm font-medium mb-2">Order Type: *</label>
                             <div class="flex gap-6 mb-4">
@@ -345,7 +322,6 @@
                                 </label>
                             </div>
 
-                            <!-- Pick Up Location (Default visible) -->
                             <div id="pickupFields" class="w-full">
                                 <select name="pickUpLocation" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent w-full">
                                     <option value="" disabled selected>Select Pick Up Location *</option>
@@ -353,14 +329,12 @@
                                 </select>
                             </div>
                             
-                            <!-- Delivery Fields (Initially hidden) -->
                             <div id="deliveryFields" class="form-grid mt-4 hidden">
                                 <input type="text" name="address" placeholder="Delivery Address *" class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
                                 <input type="text" name="landmark" placeholder="Landmark / Notes *" class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
                             </div>
                         </div>
 
-                        <!-- Submit Button -->
                         <div class="mt-10 text-center">
                             <p class="text-sm text-red-500 font-medium mb-3">
                                 Important Notice: This is an inquiry form. No final price is set, and no payment will be collected. Our office will contact you to confirm your order and provide final details.
@@ -369,16 +343,14 @@
                                     class="px-12 py-4 text-xl font-bold text-white rounded-full bg-purple-oven transition duration-300 hover:bg-indigo-700 shadow-xl">
                                 Send Inquiry
                             </button>
-                            <!-- Updated email display here -->
                             <p class="text-xs text-gray-400 mt-2">Inquiry will be sent to ${ORDER_EMAIL}</p>
                         </div>
                     </form>
                     <button onclick="showMenu(state.selectedBrand)" class="mt-8 text-sm font-medium text-gray-500 hover:text-gray-700 transition duration-150 rounded-md">
-                        &larr; Back to Menu
+                        ← Back to Menu
                     </button>
                 </div>
                 
-                <!-- Submission Message Modal (replaces alert()) -->
                 <div id="submissionModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
                     <div class="bg-white p-8 rounded-xl shadow-2xl max-w-sm text-center">
                         <div class="text-green-500 text-5xl mb-4">🎉</div>
@@ -531,3 +503,5 @@ We will call you soon to confirm the order and total price. Thank you!
     </script>
 </body>
 </html>
+```eof
+
