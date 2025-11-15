@@ -79,11 +79,10 @@
     <script>
         // --- Global State and Constants ---
         const APP_ROOT = document.getElementById('app');
-        // CRITICAL UPDATE: Email address for advance order inquiries is now orderonline@purpleoven.com.ph
+        // Email address for advance order inquiries
         const ORDER_EMAIL = "orderonline@purpleoven.com.ph"; 
 
         // Logo and Menu File Paths (User must upload these files to the same directory)
-        // Updated extension to .jpg as requested.
         const MAIN_LOGO_URL = "Anyone_Can_Cook_Logo.jpg";
         const GOFFA_LOGO_URL = "Goffa_Logo.png";
         const PO_LOGO_URL = "purple_oven.png";
@@ -99,19 +98,22 @@
                 theme: 'black-white',
                 description: 'Gourmet home-cooked meals, specializing in comfort food classics.',
                 logo: GOFFA_LOGO_URL,
-                menuFile: 'Goffa_Boxed_Orders.pdf' // PDF menu filename
+                // Updated to expect a large image file
+                menuFile: 'Goffa_Menu.jpg' 
             },
             PurpleOven: {
                 theme: 'purple-white',
                 description: 'The finest baked goods, cakes, and pastries, known for their quality.',
                 logo: PO_LOGO_URL,
-                menuFile: 'PO_Menu.pdf' // PDF menu filename
+                // Updated to expect a large image file
+                menuFile: 'PO_Menu.jpg' 
             },
             VillageCook: {
                 theme: 'black-white',
                 description: 'Everyday meals and catering services with a focus on fresh, local ingredients.',
                 logo: VC_LOGO_URL,
-                menuFile: 'Village_Cook_Menu.pdf' // PDF menu filename
+                // Updated to expect a large image file
+                menuFile: 'Village_Cook_Menu.jpg' 
             }
         };
 
@@ -149,9 +151,9 @@
         function renderLanding() {
             return `
                 <div class="text-center">
-                    <!-- Main Logo using the provided JPG filename -->
+                    <!-- Main Logo: Increased size h-48 w-64 -->
                     <img src="${MAIN_LOGO_URL}" onerror="this.src='https://placehold.co/300x100/333/fff?text=Anyone+Can+Cook'" 
-                         alt="Anyone Can Cook, Inc. Logo" class="mx-auto mb-8 h-32 w-auto object-contain">
+                         alt="Anyone Can Cook, Inc. Logo" class="mx-auto mb-8 h-48 w-64 object-contain">
                     
                     <h1 class="text-5xl font-extrabold tracking-tight mb-4 text-gray-900 hidden">
                         Anyone Can Cook, Inc.
@@ -169,9 +171,9 @@
                                 <div onclick="showMenu('${brand}')" 
                                      class="cursor-pointer p-6 rounded-xl shadow-lg transition duration-300 transform hover:scale-105 w-full max-w-xs md:w-56 ${logoClass}">
                                     <div class="flex justify-center mb-4">
-                                        <!-- Subsidiary Logo using the provided PNG filename -->
+                                        <!-- Subsidiary Logo: Increased size h-24 w-24 -->
                                         <img src="${brandData.logo}" onerror="this.src='https://placehold.co/64x64/eee/333?text=${brand}'" 
-                                             alt="${brand} Logo" class="h-16 w-16 object-contain">
+                                             alt="${brand} Logo" class="h-24 w-24 object-contain">
                                     </div>
                                     <!-- Brand name removed as requested -->
                                     <p class="text-sm text-gray-500">${brandData.description}</p>
@@ -183,25 +185,24 @@
             `;
         }
 
-        /** Renders the Menu View content for the selected brand, using an iframe for the PDF. */
+        /** Renders the Menu View content for the selected brand, using an image file for the menu. */
         function renderMenu(brand) {
             const data = brands[brand];
             const isPurple = brand === 'PurpleOven';
             const themeClass = isPurple ? 'text-purple-oven border-purple-oven' : 'text-gray-900 border-gray-800';
             const buttonClass = isPurple ? 'bg-purple-oven hover:bg-indigo-700' : 'bg-gray-800 hover:bg-black';
 
-            // Use the PDF filename and append #toolbar=0 to hide the default PDF viewer toolbar
             const menuFile = data.menuFile; 
-            const menuSrc = `${menuFile}#toolbar=0`;
 
             const menuContent = `
                 <!-- Logo and Upper Right Button -->
                 <div class="flex justify-between items-center mb-4">
                     <!-- Brand Logo centered -->
                     <div class="flex-1"></div>
+                    <!-- Subsidiary Logo: Increased size h-20 w-20 -->
                     <img src="${data.logo}" 
                          onerror="this.src='https://placehold.co/80x80/eee/333?text=${brand}'" 
-                         alt="${brand} Logo" class="h-16 w-16 object-contain mx-auto">
+                         alt="${brand} Logo" class="h-20 w-20 object-contain mx-auto">
                     
                     <!-- ADVANCE ORDER BUTTON (Upper Right) -->
                     <div class="flex-1 flex justify-end">
@@ -212,11 +213,13 @@
                     </div>
                 </div>
 
-                <div class="h-[600px] w-full border ${themeClass} rounded-xl overflow-hidden shadow-inner">
-                    <!-- Embed the PDF menu using an iframe, which handles scrolling and viewing -->
-                    <iframe src="${menuSrc}" class="w-full h-full border-0" 
-                            onerror="this.outerHTML='<div class=\\'p-8 text-center text-gray-500 bg-red-50 border border-red-200 rounded-xl h-full flex items-center justify-center\\'><p class=\\'text-lg font-medium\\'>⚠️ Menu not loaded.</p><p class=\\'mt-2 text-sm\\'>Please ensure \\'${menuFile}\\' is uploaded to the same directory as this webpage.</p></div>'"
-                            title="${brand} Menu PDF"></iframe>
+                <!-- Scrollable Menu Image Container -->
+                <div class="h-[600px] w-full border ${themeClass} rounded-xl overflow-y-auto menu-scroll shadow-inner bg-gray-50">
+                    <!-- Menu Image (will scroll if large enough) -->
+                    <img src="${menuFile}" 
+                         onerror="this.src='https://placehold.co/800x1200/f0f0f0/333?text=${brand}+Menu+Image+Not+Found%0A%0AExpected+file:+${menuFile}'" 
+                         alt="${brand} Menu" 
+                         class="w-full h-auto object-cover">
                 </div>
                 
                 <!-- Lower Left (Back) and Lower Right (Advance Order) Buttons -->
