@@ -19,7 +19,7 @@
             flex-direction: column;
         }
         .main-content {
-            flex-grow = 1;
+            flex-grow: 1;
         }
         .text-purple-oven {
             color: var(--purple-oven);
@@ -88,7 +88,7 @@
         // --- Global State and Constants ---
         const APP_ROOT = document.getElementById('app');
         // IMPORTANT: Advance order inquiries will be sent to this email address.
-        const ORDER_EMAIL = "hrpurpleoven2@gmail.com"; 
+        const ORDER_EMAIL = "orderonline@purpleoven.com.ph"; // UPDATED EMAIL
 
         // Logo and Menu File Paths (User must upload these files to the same directory)
         const MAIN_LOGO_URL = "Anyone_Can_Cook_Logo.jpg";
@@ -107,21 +107,21 @@
                 description: 'Gourmet home-cooked meals, specializing in comfort food classics.',
                 logo: GOFFA_LOGO_URL,
                 // Confirmed PDF filename
-                menuFile: 'Goffa_Boxed_Orders.pdf' 
+                menuFile: 'Goffa_Boxed_Orders.pdf'
             },
             PurpleOven: {
                 theme: 'purple-white',
                 description: 'The finest baked goods, cakes, and pastries, known for their quality.',
                 logo: PO_LOGO_URL,
                 // Confirmed PDF filename
-                menuFile: 'PO_Menu.pdf' 
+                menuFile: 'PO_Menu.pdf'
             },
             VillageCook: {
                 theme: 'black-white',
                 description: 'Everyday meals and catering services with a focus on fresh, local ingredients.',
                 logo: VC_LOGO_URL,
                 // Confirmed PDF filename
-                menuFile: 'Village_Cook_Menu.pdf' 
+                menuFile: 'Village_Cook_Menu.pdf'
             }
         };
 
@@ -160,8 +160,8 @@
             return `
                 <div class="text-center animate-fadeIn">
                     <!-- Main Logo: Increased size h-48 w-64 -->
-                    <img src="${MAIN_LOGO_URL}" onerror="this.src='https://placehold.co/300x100/333/fff?text=Anyone+Can+Cook'" 
-                         alt="Anyone Can Cook, Inc. Logo" class="mx-auto mb-8 h-48 w-64 object-contain">
+                    <img src="${MAIN_LOGO_URL}" onerror="this.src='https://placehold.co/300x100/333/fff?text=Anyone+Can+Cook'"
+                            alt="Anyone Can Cook, Inc. Logo" class="mx-auto mb-8 h-48 w-64 object-contain">
                     
                     <h1 class="text-5xl font-extrabold tracking-tight mb-4 text-gray-900 hidden">
                         Anyone Can Cook, Inc.
@@ -176,12 +176,12 @@
                             const logoClass = brandData.theme === 'purple-white' ? 'border-2 border-purple-oven hover:bg-purple-100' : 'border border-gray-300 hover:bg-gray-50';
                             const titleColor = brandData.theme === 'purple-white' ? 'text-purple-oven' : 'text-gray-900';
                             return `
-                                <div onclick="showMenu('${brand}')" 
-                                     class="cursor-pointer p-6 rounded-xl shadow-lg transition duration-300 transform hover:scale-105 w-full max-w-xs md:w-56 ${logoClass}">
+                                <div onclick="showMenu('${brand}')"
+                                    class="cursor-pointer p-6 rounded-xl shadow-lg transition duration-300 transform hover:scale-105 w-full max-w-xs md:w-56 ${logoClass}">
                                     <div class="flex justify-center mb-4">
                                         <!-- Subsidiary Logo: Increased size h-24 w-24 -->
-                                        <img src="${brandData.logo}" onerror="this.src='https://placehold.co/64x64/eee/333?text=${brand}'" 
-                                             alt="${brand} Logo" class="h-24 w-24 object-contain">
+                                        <img src="${brandData.logo}" onerror="this.src='https://placehold.co/64x64/eee/333?text=${brand}'"
+                                            alt="${brand} Logo" class="h-24 w-24 object-contain">
                                     </div>
                                     <!-- Brand description -->
                                     <p class="text-sm text-gray-500">${brandData.description}</p>
@@ -200,9 +200,9 @@
             const themeClass = isPurple ? 'text-purple-oven border-purple-oven' : 'text-gray-900 border-gray-800';
             const buttonClass = isPurple ? 'bg-purple-oven hover:bg-indigo-700' : 'bg-gray-800 hover:bg-black';
 
-            const menuFile = data.menuFile; 
+            const menuFile = data.menuFile;
             // Append #toolbar=0 to hide the default PDF viewer toolbar
-            const menuSrc = `${menuFile}#toolbar=0`; 
+            const menuSrc = `${menuFile}#toolbar=0`;
 
             const menuContent = `
                 <!-- Logo and Upper Right Button -->
@@ -210,9 +210,9 @@
                     <!-- Brand Logo centered -->
                     <div class="flex-1"></div>
                     <!-- Subsidiary Logo: Increased size h-20 w-20 -->
-                    <img src="${data.logo}" 
-                         onerror="this.src='https://placehold.co/80x80/eee/333?text=${brand}'" 
-                         alt="${brand} Logo" class="h-20 w-20 object-contain mx-auto">
+                    <img src="${data.logo}"
+                            onerror="this.src='https://placehold.co/80x80/eee/333?text=${brand}'"
+                            alt="${brand} Logo" class="h-20 w-20 object-contain mx-auto">
                     
                     <!-- ADVANCE ORDER BUTTON (Upper Right) -->
                     <div class="flex-1 flex justify-end">
@@ -226,13 +226,13 @@
                 <!-- Scrollable Menu PDF Container (Styled to look like a clean document) -->
                 <div class="h-[600px] w-full border ${themeClass} rounded-xl overflow-y-auto menu-scroll shadow-inner bg-gray-50">
                     <!-- Using <embed> for a cleaner, scrollable, in-line PDF display with no toolbar -->
-                    <embed src="${menuSrc}" 
-                           type="application/pdf" 
-                           width="100%" 
-                           height="100%"
-                           class="border-0"
-                           onerror="this.outerHTML='<div class=\\'p-8 text-center text-gray-500 bg-red-50 border border-red-200 rounded-xl h-full flex items-center justify-center\\'><p class=\\'text-lg font-medium\\'>⚠️ Menu not loaded.</p><p class=\\'mt-2 text-sm\\'>Please ensure \\'${menuFile}\\' is uploaded to the same directory as this webpage.</p></div>'"
-                           title="${brand} Menu Document">
+                    <embed src="${menuSrc}"
+                            type="application/pdf"
+                            width="100%"
+                            height="100%"
+                            class="border-0"
+                            onerror="this.outerHTML='<div class=\\'p-8 text-center text-gray-500 bg-red-50 border border-red-200 rounded-xl h-full flex items-center justify-center\\'><p class=\\'text-lg font-medium\\'>⚠️ Menu not loaded.</p><p class=\\'mt-2 text-sm\\'>Please ensure \\'${menuFile}\\' is uploaded to the same directory as this webpage.</p></div>'"
+                            title="${brand} Menu Document">
                 </div>
                 
                 <!-- Lower Left (Back) and Lower Right (Advance Order) Buttons -->
@@ -277,7 +277,7 @@
                     <div class="bg-indigo-50 p-4 rounded-xl mb-6 border border-indigo-200">
                         <h2 class="text-lg font-semibold text-indigo-800 mb-1">Office Hours</h2>
                         <p class="text-indigo-700">
-                            Our team is available to confirm your advance orders daily from 
+                            Our team is available to confirm your advance orders daily from
                             <span class="font-bold">8:00 AM to 7:00 PM.</span>
                         </p>
                     </div>
@@ -318,9 +318,9 @@
                             <div class="flex flex-wrap gap-4">
                                 ${Object.keys(brands).map(brand => `
                                     <label class="inline-flex items-center">
-                                        <input type="checkbox" name="orderFor" value="${brand}" 
-                                               class="h-5 w-5 text-purple-oven border-gray-300 rounded focus:ring-purple-oven"
-                                               ${state.selectedBrand === brand ? 'checked disabled' : ''}>
+                                        <input type="checkbox" name="orderFor" value="${brand}"
+                                                class="h-5 w-5 text-purple-oven border-gray-300 rounded focus:ring-purple-oven"
+                                                ${state.selectedBrand === brand ? 'checked disabled' : ''}>
                                         <span class="ml-2 text-gray-700">${brand}</span>
                                     </label>
                                 `).join('')}
@@ -331,8 +331,8 @@
                         <div class="mt-6">
                             <label for="orderSummary" class="block text-sm font-medium mb-2">Order Summary: *</label>
                             <textarea id="orderSummary" name="orderSummary" rows="4" required
-                                      placeholder="Type the exact items and quantity (e.g., Signature Lasagna x 2, Blueberry Cheesecake x 1)"
-                                      class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent"></textarea>
+                                            placeholder="Type the exact items and quantity (e.g., Signature Lasagna x 2, Blueberry Cheesecake x 1)"
+                                            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent"></textarea>
                         </div>
 
                         <!-- Order Type (Pick Up / Delivery) -->
@@ -340,15 +340,15 @@
                             <label class="block text-sm font-medium mb-2">Order Type: *</label>
                             <div class="flex gap-6 mb-4">
                                 <label class="inline-flex items-center">
-                                    <input type="radio" name="orderType" value="Pick Up" checked 
-                                           onchange="toggleDeliveryFields(false)"
-                                           class="h-5 w-5 text-purple-oven border-gray-300 focus:ring-purple-oven">
+                                    <input type="radio" name="orderType" value="Pick Up" checked
+                                            onchange="toggleDeliveryFields(false)"
+                                            class="h-5 w-5 text-purple-oven border-gray-300 focus:ring-purple-oven">
                                     <span class="ml-2 text-gray-700">Pick Up (8:00 AM - 8:45 PM)</span>
                                 </label>
                                 <label class="inline-flex items-center">
                                     <input type="radio" name="orderType" value="Delivery"
-                                           onchange="toggleDeliveryFields(true)"
-                                           class="h-5 w-5 text-purple-oven border-gray-300 focus:ring-purple-oven">
+                                            onchange="toggleDeliveryFields(true)"
+                                            class="h-5 w-5 text-purple-oven border-gray-300 focus:ring-purple-oven">
                                     <span class="ml-2 text-gray-700">Delivery (9:00 AM - 8:45 PM)</span>
                                 </label>
                             </div>
@@ -373,7 +373,7 @@
                             <p class="text-sm text-red-500 font-medium mb-3">
                                 Important Notice: This is an inquiry form. No final price is set, and no payment will be collected. Our office will contact you to confirm your order and provide final details.
                             </p>
-                            <button type="submit" 
+                            <button type="submit"
                                     class="px-12 py-4 text-xl font-bold text-white rounded-full bg-purple-oven transition duration-300 hover:bg-indigo-700 shadow-xl">
                                 Send Inquiry
                             </button>
@@ -474,8 +474,8 @@ Time Needed: ${formObject.timeNeeded}
 Order For (Brands): ${formObject.orderFor}
 Order Type: ${formObject.orderType}
 
-${formObject.orderType === 'Pick Up' 
-    ? `Pick Up Location: ${formObject.pickUpLocation}` 
+${formObject.orderType === 'Pick Up'
+    ? `Pick Up Location: ${formObject.pickUpLocation}`
     : `Delivery Address: ${formObject.address}\nLandmark: ${formObject.landmark}`
 }
 
