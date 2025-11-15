@@ -79,7 +79,7 @@
     <script>
         // --- Global State and Constants ---
         const APP_ROOT = document.getElementById('app');
-        // Email address for advance order inquiries
+        // Email address for advance order inquiries - UPDATED
         const ORDER_EMAIL = "orderonline@purpleoven.com.ph"; 
 
         // Logo and Menu File Paths (User must upload these files to the same directory)
@@ -98,22 +98,22 @@
                 theme: 'black-white',
                 description: 'Gourmet home-cooked meals, specializing in comfort food classics.',
                 logo: GOFFA_LOGO_URL,
-                // Updated to expect a large image file
-                menuFile: 'Goffa_Menu.jpg' 
+                // Reverted to PDF files
+                menuFile: 'Goffa_Boxed_Orders.pdf' 
             },
             PurpleOven: {
                 theme: 'purple-white',
                 description: 'The finest baked goods, cakes, and pastries, known for their quality.',
                 logo: PO_LOGO_URL,
-                // Updated to expect a large image file
-                menuFile: 'PO_Menu.jpg' 
+                // Reverted to PDF files
+                menuFile: 'PO_Menu.pdf' 
             },
             VillageCook: {
                 theme: 'black-white',
                 description: 'Everyday meals and catering services with a focus on fresh, local ingredients.',
                 logo: VC_LOGO_URL,
-                // Updated to expect a large image file
-                menuFile: 'Village_Cook_Menu.jpg' 
+                // Reverted to PDF files
+                menuFile: 'Village_Cook_Menu.pdf' 
             }
         };
 
@@ -175,7 +175,7 @@
                                         <img src="${brandData.logo}" onerror="this.src='https://placehold.co/64x64/eee/333?text=${brand}'" 
                                              alt="${brand} Logo" class="h-24 w-24 object-contain">
                                     </div>
-                                    <!-- Brand name removed as requested -->
+                                    <!-- Brand description -->
                                     <p class="text-sm text-gray-500">${brandData.description}</p>
                                 </div>
                             `;
@@ -193,6 +193,8 @@
             const buttonClass = isPurple ? 'bg-purple-oven hover:bg-indigo-700' : 'bg-gray-800 hover:bg-black';
 
             const menuFile = data.menuFile; 
+            // Append #toolbar=0 to hide the default PDF viewer toolbar
+            const menuSrc = `${menuFile}#toolbar=0`; 
 
             const menuContent = `
                 <!-- Logo and Upper Right Button -->
@@ -213,13 +215,16 @@
                     </div>
                 </div>
 
-                <!-- Scrollable Menu Image Container -->
+                <!-- Scrollable Menu PDF Container (Styled to look like a clean document) -->
                 <div class="h-[600px] w-full border ${themeClass} rounded-xl overflow-y-auto menu-scroll shadow-inner bg-gray-50">
-                    <!-- Menu Image (will scroll if large enough) -->
-                    <img src="${menuFile}" 
-                         onerror="this.src='https://placehold.co/800x1200/f0f0f0/333?text=${brand}+Menu+Image+Not+Found%0A%0AExpected+file:+${menuFile}'" 
-                         alt="${brand} Menu" 
-                         class="w-full h-auto object-cover">
+                    <!-- Using <embed> for a cleaner, scrollable, in-line PDF display -->
+                    <embed src="${menuSrc}" 
+                           type="application/pdf" 
+                           width="100%" 
+                           height="100%"
+                           class="border-0"
+                           onerror="this.outerHTML='<div class=\\'p-8 text-center text-gray-500 bg-red-50 border border-red-200 rounded-xl h-full flex items-center justify-center\\'><p class=\\'text-lg font-medium\\'>⚠️ Menu not loaded.</p><p class=\\'mt-2 text-sm\\'>Please ensure \\'${menuFile}\\' is uploaded to the same directory as this webpage.</p></div>'"
+                           title="${brand} Menu Document">
                 </div>
                 
                 <!-- Lower Left (Back) and Lower Right (Advance Order) Buttons -->
