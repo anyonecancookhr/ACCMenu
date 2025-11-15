@@ -83,7 +83,8 @@
         const ORDER_EMAIL = "orderonline@purpleoven.com.ph"; 
 
         // Logo and Menu File Paths (User must upload these files to the same directory)
-        const MAIN_LOGO_URL = "Anyone_Can_Cook_Logo.png";
+        // Updated extension to .jpg as requested.
+        const MAIN_LOGO_URL = "Anyone_Can_Cook_Logo.jpg";
         const GOFFA_LOGO_URL = "Goffa_Logo.png";
         const PO_LOGO_URL = "purple_oven.png";
         const VC_LOGO_URL = "Village_Cook_Logo_Rendition_square.png";
@@ -148,7 +149,7 @@
         function renderLanding() {
             return `
                 <div class="text-center">
-                    <!-- Main Logo using the provided PNG filename -->
+                    <!-- Main Logo using the provided JPG filename -->
                     <img src="${MAIN_LOGO_URL}" onerror="this.src='https://placehold.co/300x100/333/fff?text=Anyone+Can+Cook'" 
                          alt="Anyone Can Cook, Inc. Logo" class="mx-auto mb-8 h-32 w-auto object-contain">
                     
@@ -172,7 +173,7 @@
                                         <img src="${brandData.logo}" onerror="this.src='https://placehold.co/64x64/eee/333?text=${brand}'" 
                                              alt="${brand} Logo" class="h-16 w-16 object-contain">
                                     </div>
-                                    <h2 class="text-2xl font-semibold ${titleColor} mb-2">${brand}</h2>
+                                    <!-- Brand name removed as requested -->
                                     <p class="text-sm text-gray-500">${brandData.description}</p>
                                 </div>
                             `;
@@ -189,33 +190,43 @@
             const themeClass = isPurple ? 'text-purple-oven border-purple-oven' : 'text-gray-900 border-gray-800';
             const buttonClass = isPurple ? 'bg-purple-oven hover:bg-indigo-700' : 'bg-gray-800 hover:bg-black';
 
-            // Use the PDF filename from the brands object
+            // Use the PDF filename and append #toolbar=0 to hide the default PDF viewer toolbar
             const menuFile = data.menuFile; 
+            const menuSrc = `${menuFile}#toolbar=0`;
 
-            // The iframe is the most reliable way to display an external PDF. 
-            // Note: A true "page-flipping" effect requires specialized external JS libraries, which are not included here.
             const menuContent = `
-                <h3 class="text-3xl font-bold ${isPurple ? 'text-purple-oven' : 'text-gray-900'} mb-4">
-                    ${brand} Menu
-                </h3>
-                
+                <!-- Logo and Upper Right Button -->
+                <div class="flex justify-between items-center mb-4">
+                    <!-- Brand Logo centered -->
+                    <div class="flex-1"></div>
+                    <img src="${data.logo}" 
+                         onerror="this.src='https://placehold.co/80x80/eee/333?text=${brand}'" 
+                         alt="${brand} Logo" class="h-16 w-16 object-contain mx-auto">
+                    
+                    <!-- ADVANCE ORDER BUTTON (Upper Right) -->
+                    <div class="flex-1 flex justify-end">
+                        <button onclick="showOrder()"
+                                class="px-6 py-2 text-base font-semibold text-white rounded-full transition duration-300 shadow-xl ${buttonClass}">
+                            Advance Order
+                        </button>
+                    </div>
+                </div>
+
                 <div class="h-[600px] w-full border ${themeClass} rounded-xl overflow-hidden shadow-inner">
                     <!-- Embed the PDF menu using an iframe, which handles scrolling and viewing -->
-                    <iframe src="${menuFile}" class="w-full h-full border-0" 
+                    <iframe src="${menuSrc}" class="w-full h-full border-0" 
                             onerror="this.outerHTML='<div class=\\'p-8 text-center text-gray-500 bg-red-50 border border-red-200 rounded-xl h-full flex items-center justify-center\\'><p class=\\'text-lg font-medium\\'>⚠️ Menu not loaded.</p><p class=\\'mt-2 text-sm\\'>Please ensure \\'${menuFile}\\' is uploaded to the same directory as this webpage.</p></div>'"
                             title="${brand} Menu PDF"></iframe>
                 </div>
                 
-                <p class="text-xs text-gray-500 mt-3 text-center">
-                    (Menu is displayed as a scrollable embed. For a "page-flipping" effect, specialized libraries are typically required.)
-                </p>
-
+                <!-- Lower Left (Back) and Lower Right (Advance Order) Buttons -->
                 <div class="mt-8 flex justify-between items-center">
                     <button onclick="showLanding()" class="text-sm font-medium text-gray-500 hover:text-gray-700 transition duration-150 rounded-md">
                         &larr; Back to Subsidiaries
                     </button>
+                    <!-- ADVANCE ORDER BUTTON (Lower Right) -->
                     <button onclick="showOrder()"
-                            class="px-8 py-3 text-lg font-semibold text-white rounded-full transition duration-300 shadow-md ${buttonClass} shadow-lg">
+                            class="px-6 py-2 text-base font-semibold text-white rounded-full transition duration-300 shadow-md ${buttonClass} shadow-lg">
                         Advance Order
                     </button>
                 </div>
@@ -232,7 +243,7 @@
         
         // --- Form Functions ---
 
-        /** Renders the Advance Order Form content. (No changes, copied from previous version) */
+        /** Renders the Advance Order Form content. */
         function renderOrderForm() {
             const isPurple = state.selectedBrand === 'PurpleOven';
             const themeClass = isPurple ? 'border-purple-oven' : 'border-gray-800';
