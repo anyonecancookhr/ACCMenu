@@ -19,6 +19,7 @@
             flex-direction: column;
         }
         .main-content {
+            /* flex-grow: 1 ensures the content area takes up remaining space */
             flex-grow: 1;
         }
         .text-purple-oven {
@@ -58,7 +59,8 @@
 </head>
 <body class="text-gray-800">
 
-    <div id="app" class="main-content flex flex-col items-center justify-center p-4 sm:p-8">
+    <!-- Removed justify-center from the main app container to prevent mobile scrolling issues -->
+    <div id="app" class="main-content flex flex-col items-center p-4 sm:p-8">
         <!-- Content will be rendered here by JavaScript -->
     </div>
 
@@ -88,7 +90,7 @@
         // --- Global State and Constants ---
         const APP_ROOT = document.getElementById('app');
         // IMPORTANT: Advance order inquiries will be sent to this email address.
-        const ORDER_EMAIL = "orderonline@purpleoven.com.ph"; // UPDATED EMAIL
+        const ORDER_EMAIL = "orderonline@purpleoven.com.ph"; // Confirmed Email
 
         // Logo and Menu File Paths (User must upload these files to the same directory)
         const MAIN_LOGO_URL = "Anyone_Can_Cook_Logo.jpg";
@@ -157,11 +159,14 @@
 
         /** Renders the Landing Page content. */
         function renderLanding() {
+            // Added justify-center for the landing page for visual appeal
+            APP_ROOT.classList.add('justify-center');
+
             return `
                 <div class="text-center animate-fadeIn">
                     <!-- Main Logo: Increased size h-48 w-64 -->
                     <img src="${MAIN_LOGO_URL}" onerror="this.src='https://placehold.co/300x100/333/fff?text=Anyone+Can+Cook'"
-                            alt="Anyone Can Cook, Inc. Logo" class="mx-auto mb-8 h-48 w-64 object-contain">
+                        alt="Anyone Can Cook, Inc. Logo" class="mx-auto mb-8 h-48 w-64 object-contain">
                     
                     <h1 class="text-5xl font-extrabold tracking-tight mb-4 text-gray-900 hidden">
                         Anyone Can Cook, Inc.
@@ -195,6 +200,9 @@
 
         /** Renders the Menu View content for the selected brand, using an image file for the menu. */
         function renderMenu(brand) {
+            // Removed justify-center for this view to prevent content being pushed off-screen
+            APP_ROOT.classList.remove('justify-center');
+            
             const data = brands[brand];
             const isPurple = brand === 'PurpleOven';
             const themeClass = isPurple ? 'text-purple-oven border-purple-oven' : 'text-gray-900 border-gray-800';
@@ -217,14 +225,15 @@
                     <!-- ADVANCE ORDER BUTTON (Upper Right) -->
                     <div class="flex-1 flex justify-end">
                         <button onclick="showOrder()"
-                                class="px-6 py-2 text-base font-semibold text-white rounded-full transition duration-300 shadow-xl ${buttonClass}">
+                                class="px-3 py-1 sm:px-6 sm:py-2 text-xs sm:text-base font-semibold text-white rounded-full transition duration-300 shadow-xl ${buttonClass}">
                             Advance Order
                         </button>
                     </div>
                 </div>
 
-                <!-- Scrollable Menu PDF Container (Styled to look like a clean document) -->
-                <div class="h-[600px] w-full border ${themeClass} rounded-xl overflow-y-auto menu-scroll shadow-inner bg-gray-50">
+                <!-- Scrollable Menu PDF Container (Using dynamic height for mobile fix) -->
+                <!-- h-[calc(100vh-280px)] calculates viewport height minus header/footer/margins -->
+                <div class="h-[calc(100vh-280px)] max-h-[80vh] w-full border ${themeClass} rounded-xl overflow-y-auto menu-scroll shadow-inner bg-gray-50">
                     <!-- Using <embed> for a cleaner, scrollable, in-line PDF display with no toolbar -->
                     <embed src="${menuSrc}"
                             type="application/pdf"
@@ -250,7 +259,7 @@
 
             return `
                 <div class="w-full max-w-4xl animate-fadeIn">
-                    <div class="p-8 bg-white rounded-2xl shadow-2xl border ${themeClass} transition duration-300">
+                    <div class="p-4 sm:p-8 bg-white rounded-2xl shadow-2xl border ${themeClass} transition duration-300">
                         ${menuContent}
                     </div>
                 </div>
@@ -261,6 +270,9 @@
 
         /** Renders the Advance Order Form content. */
         function renderOrderForm() {
+            // Removed justify-center for this view
+            APP_ROOT.classList.remove('justify-center');
+
             const isPurple = state.selectedBrand === 'PurpleOven';
             const themeClass = isPurple ? 'border-purple-oven' : 'border-gray-800';
 
@@ -331,8 +343,8 @@
                         <div class="mt-6">
                             <label for="orderSummary" class="block text-sm font-medium mb-2">Order Summary: *</label>
                             <textarea id="orderSummary" name="orderSummary" rows="4" required
-                                            placeholder="Type the exact items and quantity (e.g., Signature Lasagna x 2, Blueberry Cheesecake x 1)"
-                                            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent"></textarea>
+                                                placeholder="Type the exact items and quantity (e.g., Signature Lasagna x 2, Blueberry Cheesecake x 1)"
+                                                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent"></textarea>
                         </div>
 
                         <!-- Order Type (Pick Up / Delivery) -->
@@ -415,6 +427,7 @@
                 deliveryFields.classList.remove('hidden');
                 pickupFields.classList.add('hidden');
                 
+                // Set required for visible fields
                 deliveryAddress.required = true;
                 deliveryLandmark.required = true;
                 pickupSelect.required = false;
@@ -423,6 +436,7 @@
                 deliveryFields.classList.add('hidden');
                 pickupFields.classList.remove('hidden');
 
+                // Set required for visible fields
                 deliveryAddress.required = false;
                 deliveryLandmark.required = false;
                 pickupSelect.required = true;
@@ -539,5 +553,6 @@ We will call you soon to confirm the order and total price. Thank you!
     </script>
 </body>
 </html>
+
 
 
