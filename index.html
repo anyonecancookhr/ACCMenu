@@ -61,38 +61,34 @@
 <body class="text-gray-800">
 
     <div id="app" class="main-content flex flex-col items-center p-4 sm:p-8">
-        </div>
+    </div>
 
     <footer class="bg-gray-100 py-6 px-4 w-full border-t border-gray-200">
         <div class="max-w-4xl mx-auto">
-            <h3 
-class="text-lg font-semibold mb-3">Our Locations</h3>
+            <h3 class="text-lg font-semibold mb-3">Our Locations</h3>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 text-sm">
                 <a href="https://www.google.com/maps/search/Purple+Oven+Temple+Drive" target="_blank" class="text-gray-600 hover:text-purple-oven transition duration-150 rounded-md">Temple Drive</a>
                 <a href="https://www.google.com/maps/search/Purple+Oven+Portico" target="_blank" class="text-gray-600 hover:text-purple-oven transition duration-150 rounded-md">Portico</a>
-         
-       <a href="https://www.google.com/maps/search/Purple+Oven+Scout+Rallos" target="_blank" class="text-gray-600 hover:text-purple-oven transition duration-150 rounded-md">Scout Rallos</a>
+                <a href="https://www.google.com/maps/search/Purple+Oven+Scout+Rallos" target="_blank" class="text-gray-600 hover:text-purple-oven transition duration-150 rounded-md">Scout Rallos</a>
                 <a href="https://www.google.com/maps/search/Purple+Oven+San+Juan" target="_blank" class="text-gray-600 hover:text-purple-oven transition duration-150 rounded-md">San Juan</a>
                 <a href="https://www.google.com/maps/search/Purple+Oven+San+Antonio" target="_blank" class="text-gray-600 hover:text-purple-oven transition duration-150 rounded-md">San Antonio</a>
                 <a href="https://www.google.com/maps/search/Purple+Oven+Legazpi+Village" target="_blank" class="text-gray-600 hover:text-purple-oven transition duration-150 rounded-md">Legazpi Village</a>
-             
-    <a href="https://www.google.com/maps/search/Purple+Oven+Alabang" target="_blank" class="text-gray-600 hover:text-purple-oven transition duration-150 rounded-md">Alabang</a>
+                <a href="https://www.google.com/maps/search/Purple+Oven+Alabang" target="_blank" class="text-gray-600 hover:text-purple-oven transition duration-150 rounded-md">Alabang</a>
                 <a href="https://www.google.com/maps/search/Purple+Oven+Sacred+Heart" target="_blank" class="text-gray-600 hover:text-purple-oven transition duration-150 rounded-md">Sacred Heart</a>
                 <a href="https://www.google.com/maps/search/Purple+Oven+Santa+Rosa+Laguna" target="_blank" class="text-gray-600 hover:text-purple-oven transition duration-150 rounded-md">Santa Rosa - Laguna</a>
             </div>
             <div class="mt-4 text-center text-xs text-gray-500">
-            
-     © 2025 Anyone Can Cook,Inc. All rights reserved.
- </div>
+                © 2025 Anyone Can Cook,Inc. All rights reserved.
+            </div>
         </div>
     </footer>
 
     <script>
         // --- Global State and Constants ---
         const APP_ROOT = document.getElementById('app');
-// IMPORTANT: Advance order inquiries will be sent to this email address.
+        // IMPORTANT: Advance order inquiries will be sent to this email address.
         const ORDER_EMAIL = "orderonline@purpleoven.com.ph";
-// Confirmed Email
+        // Confirmed Email
 
         // Logo and Menu File Paths (User must upload these files to the same directory)
         const MAIN_LOGO_URL = "Anyone_Can_Cook_Logo.jpg";
@@ -164,40 +160,39 @@ class="text-lg font-semibold mb-3">Our Locations</h3>
             // Added justify-center for the landing page for visual appeal
             APP_ROOT.classList.add('justify-center');
             return `
-                <div class="text-center animate-fadeIn">
+                <div class="text-center animate-fadeIn w-full">
+                    <!-- Main Logo: Streamlined for mobile. Uses max-width instead of fixed width to prevent left-leaning on mobile -->
                     <img src="${MAIN_LOGO_URL}" onerror="this.src='https://placehold.co/300x100/333/fff?text=Anyone+Can+Cook'"
-                        alt="Anyone Can Cook, Inc. Logo" class="mx-auto mb-8 h-[336px] 
-w-[448px] object-contain">
+                        alt="Anyone Can Cook, Inc. Logo" class="mx-auto mb-8 h-auto max-h-[336px] w-full max-w-[448px] object-contain">
                     
                     <h1 class="text-5xl font-extrabold tracking-tight mb-4 text-gray-900 hidden">
                         Anyone Can Cook, Inc.
                     </h1>
-      
-               
+            
                     <p class="text-xl text-gray-500 mb-12">Welcome!
 Find your next delicious meal by choosing one of our kitchens below.</p>
 
-                    <div class="flex flex-col md:flex-row justify-center space-y-8 md:space-y-0 md:space-x-12">
+                    <!-- Added items-center to streamline alignment on mobile flex-col -->
+                    <div class="flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-12">
                         ${Object.keys(brands).map(brand => {
                             const brandData = brands[brand];
      
                             const logoClass = brandData.theme === 'purple-white' ? 'border-2 border-purple-oven hover:bg-purple-100' : 'border border-gray-300 hover:bg-gray-50';
                             const titleColor = brandData.theme === 'purple-white' ? 'text-purple-oven' : 'text-gray-900';
-                           
+                            
                             return `
                                 <div onclick="showMenu('${brand}')"
                                     class="cursor-pointer p-6 rounded-xl shadow-lg transition duration-300 transform hover:scale-105 w-full max-w-xs md:w-56 ${logoClass}">
-                  
+                                    
                                     <div class="flex justify-center mb-4">
                                         <img src="${brandData.logo}" onerror="this.src='https://placehold.co/64x64/eee/333?text=${brand}'"
                                             alt="${brand} Logo" class="h-[125px] w-[125px] object-contain">
                                     </div>
-      
+                                    
                                     <p class="text-sm text-gray-500">${brandData.description}</p>
-                             
-    </div>
+                                </div>
                             `;
-}).join('')}
+                        }).join('')}
                     </div>
                 </div>
             `;
@@ -217,24 +212,20 @@ Find your next delicious meal by choosing one of our kitchens below.</p>
             const menuContent = `
                 <div class="flex justify-between items-center mb-4">
                     <div class="flex-1"></div>
-          
+            
                     <img src="${data.logo}"
                             onerror="this.src='https://placehold.co/80x80/eee/333?text=${brand}'"
                             alt="${brand} Logo" class="h-20 w-20 object-contain mx-auto">
- 
-                    
+            
                     <div class="flex-1 flex justify-end">
                         <button onclick="showOrder()"
-       
                             class="px-3 py-1 sm:px-6 sm:py-2 text-xs sm:text-base font-semibold text-white rounded-full transition duration-300 shadow-xl ${buttonClass}">
                             Advance Order
                         </button>
-          
                     </div>
                 </div>
 
-                <div class="h-[calc(100vh-280px)] max-h-[80vh] w-full border ${themeClass} rounded-xl overflow-y-auto 
-menu-scroll shadow-inner bg-gray-50">
+                <div class="h-[calc(100vh-280px)] max-h-[80vh] w-full border ${themeClass} rounded-xl overflow-y-auto menu-scroll shadow-inner bg-gray-50">
                     <div class="space-y-4 p-2">
                         ${data.menuFiles.map(file => `
                             <img src="${file}"
@@ -247,15 +238,13 @@ menu-scroll shadow-inner bg-gray-50">
                     </div>
                 </div>
                 
-             
+            
                 <div class="mt-8 flex justify-between items-center">
                     <button onclick="showLanding()" class="text-sm font-medium text-gray-500 hover:text-gray-700 transition duration-150 rounded-md">
-                        ←
-Back to Home
+                        ← Back to Home
                     </button>
                     <button onclick="showOrder()"
-                            class="px-6 py-2 text-base 
-font-semibold text-white rounded-full transition duration-300 shadow-md ${buttonClass} shadow-lg">
+                            class="px-6 py-2 text-base font-semibold text-white rounded-full transition duration-300 shadow-md ${buttonClass} shadow-lg">
                         Advance Order
                     </button>
                 </div>
@@ -265,7 +254,6 @@ font-semibold text-white rounded-full transition duration-300 shadow-md ${button
                     <div class="p-4 sm:p-8 bg-white rounded-2xl shadow-2xl border ${themeClass} transition duration-300">
                         ${menuContent}
                     </div>
-       
                 </div>
             `;
         }
@@ -288,44 +276,36 @@ font-semibold text-white rounded-full transition duration-300 shadow-md ${button
                     <h1 class="text-3xl font-bold mb-6 text-center">Advance Order Inquiry</h1>
                     
                     <div class="bg-indigo-50 p-4 rounded-xl mb-6 border border-indigo-200">
-    
                         <h2 class="text-lg font-semibold text-indigo-800 mb-1">Office Hours</h2>
                         <p class="text-indigo-700">
                             Our team is available to confirm your advance orders daily from
-            
-                <span class="font-bold">8:00 AM to 7:00 PM.</span>
+                            <span class="font-bold">8:00 AM to 7:00 PM.</span>
                         </p>
                     </div>
 
                     <div class="mb-8 border-b pb-6">
                         <h2 class="text-xl font-semibold mb-3">Option 1: Call Us</h2>
                         <p class="text-gray-600 mb-2">For immediate assistance or to discuss your order, please give us a call.</p>
-                   
-             <a href="tel:86314221" class="inline-block text-2xl font-bold text-green-600 hover:text-green-700 transition duration-150 p-2 rounded-lg bg-green-50">
+                    
+                        <a href="tel:86314221" class="inline-block text-2xl font-bold text-green-600 hover:text-green-700 transition duration-150 p-2 rounded-lg bg-green-50">
                             📞 Call: 8631-4221
                         </a>
                     </div>
 
-          
                     <form id="orderForm" onsubmit="handleFormSubmission(event)">
                         <h2 class="text-xl font-semibold mb-4">Option 2: Send an Inquiry</h2>
-                        <p class="text-gray-600 mb-6">Fill out the form 
-below to send us an order inquiry. We will contact you to confirm details.</p>
+                        <p class="text-gray-600 mb-6">Fill out the form below to send us an order inquiry. We will contact you to confirm details.</p>
 
                         <div class="form-grid">
-                            <input type="text" name="fullName" placeholder="Full Name *" required 
-class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
+                            <input type="text" name="fullName" placeholder="Full Name *" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
                             <input type="email" name="email" placeholder="Email *" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
                             <input type="tel" name="phone" placeholder="Phone Number *" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
-             
                         </div>
 
                         <div class="form-grid mt-4">
-                            <input type="date" name="dateNeeded" placeholder="Date Needed *" required class="p-3 
-border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
+                            <input type="date" name="dateNeeded" placeholder="Date Needed *" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
                             <select name="timeNeeded" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
                                 <option value="" disabled selected>Time Needed (8 AM - 7 PM) *</option>
-                
                                 ${getTimeOptions()}
                             </select>
                         </div>
@@ -341,89 +321,68 @@ border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:bord
                         <div class="mt-6">
                             <label for="orderSummary" class="block text-sm font-medium mb-2">Order Summary: *</label>
                             <textarea id="orderSummary" name="orderSummary" rows="4" required
-          
-                                        placeholder="Type the exact items and quantity (e.g., Signature Lasagna x 2, Blueberry Cheesecake x 1)"
-                                                
-class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent"></textarea>
+                                            placeholder="Type the exact items and quantity (e.g., Signature Lasagna x 2, Blueberry Cheesecake x 1)"
+                                            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent"></textarea>
                         </div>
 
                         <div class="mt-6">
-             
                             <label class="block text-sm font-medium mb-2">Order Type: *</label>
                             <div class="flex gap-6 mb-4">
                                 <label class="inline-flex items-center">
-              
                                     <input type="radio" name="orderType" value="Pick Up" checked
                                             onchange="toggleDeliveryFields(false)"
-                             
-                                class="h-5 w-5 text-purple-oven border-gray-300 focus:ring-purple-oven">
+                                    class="h-5 w-5 text-purple-oven border-gray-300 focus:ring-purple-oven">
                                     <span class="ml-2 text-gray-700">Pick Up (8:00 AM - 8:45 PM)</span>
                                 </label>
-     
+            
                                 <label class="inline-flex items-center">
                                     <input type="radio" name="orderType" value="Delivery"
-                                
-                                onchange="toggleDeliveryFields(true)"
+                                    onchange="toggleDeliveryFields(true)"
                                             class="h-5 w-5 text-purple-oven border-gray-300 focus:ring-purple-oven">
-                                    <span class="ml-2 text-gray-700">Delivery (9:00 
-AM - 8:45 PM)</span>
+                                    <span class="ml-2 text-gray-700">Delivery (9:00 AM - 8:45 PM)</span>
                                 </label>
                             </div>
 
                             <div id="pickupFields" class="w-full">
                                 <select name="pickUpLocation" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent w-full">
-                               
                                     <option value="" disabled selected>Select Pick Up Location *</option>
                                     ${getLocationOptions()}
                                 </select>
-                    
                             </div>
                             
-                            <div id="deliveryFields" class="form-grid 
-mt-4 hidden">
+                            <div id="deliveryFields" class="form-grid mt-4 hidden">
                                 <input type="text" name="address" placeholder="Delivery Address *" class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
                                 <input type="text" name="landmark" placeholder="Landmark / Notes *" class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
-          
                             </div>
                         </div>
 
                         <div class="mt-10 text-center">
-     
                             <p class="text-sm text-red-500 font-medium mb-3">
-                                Important Notice: This is an inquiry form.
-No final price is set, and no payment will be collected.
-Our office will contact you to confirm your order and provide final details.
-</p>
+                                Important Notice: This is an inquiry form. No final price is set, and no payment will be collected. Our office will contact you to confirm your order and provide final details.
+                            </p>
                             <button type="submit"
                                     class="px-12 py-4 text-xl font-bold text-white rounded-full bg-purple-oven transition duration-300 hover:bg-indigo-700 shadow-xl">
-                         
-        Send Inquiry
+                                Send Inquiry
                             </button>
-                            <p class="text-xs text-gray-400 
-mt-2">Inquiry will be sent to ${ORDER_EMAIL}</p>
+                            <p class="text-xs text-gray-400 mt-2">Inquiry will be sent to ${ORDER_EMAIL}</p>
                         </div>
                     </form>
                     <button onclick="showMenu(state.selectedBrand)" class="mt-8 text-sm font-medium text-gray-500 hover:text-gray-700 transition duration-150 rounded-md">
-                      
-    ← Back to Menu
+                        ← Back to Menu
                     </button>
                 </div>
                 
-                <div id="submissionModal" class="hidden fixed inset-0 
-bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+                <div id="submissionModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
                     <div class="bg-white p-8 rounded-xl shadow-2xl max-w-sm text-center">
                         <div class="text-green-500 text-5xl mb-4">🎉</div>
                         <h3 class="text-2xl font-bold mb-3">Inquiry Sent!</h3>
-             
                         <p class="text-gray-600 mb-6">
-                            Your order inquiry has been processed.
-Please check your email and phone; our team will contact you to confirm the details.
-</p>
+                            Your order inquiry has been processed. Please check your email and phone; our team will contact you to confirm the details.
+                        </p>
                         <button onclick="closeModal()" class="px-6 py-2 bg-purple-oven text-white rounded-lg hover:bg-indigo-700 transition duration-150">
                             Close
                         </button>
-               
-             </div>
+                    </div>
                 </div>
             `;
         }
@@ -479,8 +438,7 @@ Please check your email and phone; our team will contact you to confirm the deta
             // This acts as a unique, resetting-ish order number substitute without a database.
             const orderID = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}-${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}${String(now.getSeconds()).padStart(2, '0')}`;
             // Get the brand selected on the menu page, which is preferred for the subject
-            const orderBrand = state.selectedBrand ||
-'Unspecified Brand';
+            const orderBrand = state.selectedBrand || 'Unspecified Brand';
 
             // Subject Format: Online Advance Order - [Date] - [Order Number] - [Brand]
             const subject = encodeURIComponent(`Online Advance Order - ${dateString} - ${orderID} - ${orderBrand}`);
