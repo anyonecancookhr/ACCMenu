@@ -174,7 +174,8 @@ Find your next delicious meal by choosing one of our kitchens below.</p>
 
                     <!-- Added items-center to streamline alignment on mobile flex-col -->
                     <div class="flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-12">
-                        ${Object.keys(brands).map(brand => {
+                        <!-- Reordered brands: PurpleOven first, then Goffa, then VillageCook -->
+                        ${['PurpleOven', 'Goffa', 'VillageCook'].map(brand => {
                             const brandData = brands[brand];
      
                             const logoClass = brandData.theme === 'purple-white' ? 'border-2 border-purple-oven hover:bg-purple-100' : 'border border-gray-300 hover:bg-gray-50';
@@ -332,14 +333,14 @@ Find your next delicious meal by choosing one of our kitchens below.</p>
                                     <input type="radio" name="orderType" value="Pick Up" checked
                                             onchange="toggleDeliveryFields(false)"
                                     class="h-5 w-5 text-purple-oven border-gray-300 focus:ring-purple-oven">
-                                    <span class="ml-2 text-gray-700">Pick Up (8:00 AM - 8:45 PM)</span>
+                                    <span class="ml-2 text-gray-700">Pick Up</span>
                                 </label>
             
                                 <label class="inline-flex items-center">
                                     <input type="radio" name="orderType" value="Delivery"
                                     onchange="toggleDeliveryFields(true)"
                                             class="h-5 w-5 text-purple-oven border-gray-300 focus:ring-purple-oven">
-                                    <span class="ml-2 text-gray-700">Delivery (9:00 AM - 8:45 PM)</span>
+                                    <span class="ml-2 text-gray-700">Delivery</span>
                                 </label>
                             </div>
 
