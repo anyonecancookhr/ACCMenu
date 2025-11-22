@@ -528,12 +528,34 @@ Find your next delicious meal by choosing one of our kitchens below.</p>
             }
         }
 
-        /** Renders the complex item selection for Purple Oven with collapsible categories. */
+        /** Renders the complex item selection for Purple Oven with collapsible categories, flattening certain categories. */
         function renderPurpleOvenMenuSelection() {
             let html = '';
             
             // Add instruction text
             html += `<p class="text-sm text-gray-500 mb-4">Check the items you want to order and input the desired quantity.</p>`;
+
+            // Categories where the subcategory collapsible wrapper should be skipped/flattened.
+            const categoriesToFlatten = ["Bars", "Cookies", "Loaves", "Snack Packs", "Reusable Bag"];
+
+            // Helper function to render the individual item fields
+            const renderItemFields = (items, catIndex, subCatIndex) => {
+                return items.map((item, itemIndex) => {
+                    const itemId = `item_${catIndex}_${subCatIndex}_${itemIndex}`;
+                    return `<div class="flex items-center space-x-4">
+                                <label class="flex-1 inline-flex items-center cursor-pointer select-none">
+                                    <input type="checkbox" id="${itemId}" name="orderItem" value="${item.name}"
+                                           class="h-5 w-5 text-purple-oven rounded border-gray-300 focus:ring-purple-oven"
+                                           onchange="toggleQuantity(this)">
+                                    <span class="ml-3 text-gray-800 text-sm">${item.name}</span>
+                                </label>
+                                <!-- Quantity input is an editable number field, disabled/enabled by the checkbox -->
+                                <input type="number" name="quantity_${item.name}" placeholder="0" min="1" value="0" disabled
+                                       class="w-20 p-2 border border-gray-300 rounded-lg text-center text-sm focus:ring-purple-oven disabled:bg-gray-100 disabled:text-gray-400"
+                                       id="qty_${itemId}">
+                            </div>`;
+                }).join('');
+            };
 
             purpleOvenMenuData.forEach((cat, catIndex) => {
                 const categoryId = `cat_${catIndex}`;
@@ -547,41 +569,41 @@ Find your next delicious meal by choosing one of our kitchens below.</p>
                                 </svg>
                             </summary>
 
-                            <div class="px-4 pb-4 space-y-4 pt-2">`; // Content for the main category
+                            <div class="px-4 pb-4 space-y-4 pt-2">`; // Content for the main category (Div container)
 
-                cat.subCategories.forEach((subCat, subCatIndex) => {
-                    const subCatId = `subcat_${catIndex}_${subCatIndex}`;
-                    
-                    // Use nested <details> for collapsible subcategory
-                    html += `<details class="bg-white rounded-lg shadow-sm border border-gray-100 p-0" ${catIndex === 0 && subCatIndex === 0 ? 'open' : ''}>
-                                <summary class="flex items-center justify-between cursor-pointer p-3 hover:bg-gray-50 nested-summary rounded-lg">
-                                    <p class="font-semibold text-gray-700 text-sm">${subCat.name}</p>
-                                    <svg class="w-4 h-4 text-gray-500 summary-icon" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                    </svg>
-                                </summary>
-                                
-                                <div class="px-3 pb-3 pt-2 space-y-3">`; // Content for the sub category
-
-                    subCat.items.forEach((item, itemIndex) => {
-                        const itemId = `item_${catIndex}_${subCatIndex}_${itemIndex}`;
-                        // The Quantity text (e.g., 'Whole', 'PC') is part of the item name
-                        html += `<div class="flex items-center space-x-4">
-                                    <label class="flex-1 inline-flex items-center cursor-pointer select-none">
-                                        <input type="checkbox" id="${itemId}" name="orderItem" value="${item.name}"
-                                               class="h-5 w-5 text-purple-oven rounded border-gray-300 focus:ring-purple-oven"
-                                               onchange="toggleQuantity(this)">
-                                        <span class="ml-3 text-gray-800 text-sm">${item.name}</span>
-                                    </label>
-                                    <!-- Quantity input is an editable number field, disabled/enabled by the checkbox -->
-                                    <input type="number" name="quantity_${item.name}" placeholder="0" min="1" value="0" disabled
-                                           class="w-20 p-2 border border-gray-300 rounded-lg text-center text-sm focus:ring-purple-oven disabled:bg-gray-100 disabled:text-gray-400"
-                                           id="qty_${itemId}">
+                // Check if the current category should have its items listed directly (flattened)
+                if (categoriesToFlatten.includes(cat.category)) {
+                    // FLATTENED: We assume only one subcategory exists and skip the collapsible wrapper
+                    if (cat.subCategories.length > 0) {
+                        const subCat = cat.subCategories[0]; // Get the first subcategory
+                        
+                        // Use a simple non-collapsible container for items
+                        html += `<div class="bg-white rounded-lg shadow-sm border border-gray-100 p-4 space-y-3">
+                                    <p class="font-bold text-sm text-gray-700 mb-2">${subCat.name}</p>
+                                    ${renderItemFields(subCat.items, catIndex, 0)}
                                 </div>`;
-                    });
+                    }
+                } else {
+                    // NESTED STRUCTURE (Cakes, Bread and Pastries): Use collapsible subcategories
+                    cat.subCategories.forEach((subCat, subCatIndex) => {
+                        const subCatId = `subcat_${catIndex}_${subCatIndex}`;
+                        
+                        // Use nested <details> for collapsible subcategory
+                        html += `<details class="bg-white rounded-lg shadow-sm border border-gray-100 p-0" ${catIndex === 0 && subCatIndex === 0 ? 'open' : ''}>
+                                    <summary class="flex items-center justify-between cursor-pointer p-3 hover:bg-gray-50 nested-summary rounded-lg">
+                                        <p class="font-semibold text-gray-700 text-sm">${subCat.name}</p>
+                                        <svg class="w-4 h-4 text-gray-500 summary-icon" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </summary>
+                                    
+                                    <div class="px-3 pb-3 pt-2 space-y-3">`; // Content for the sub category
+                        
+                        html += renderItemFields(subCat.items, catIndex, subCatIndex);
 
-                    html += `</div></details>`;
-                });
+                        html += `</div></details>`;
+                    });
+                }
                 
                 html += `   </div>
                         </details>`;
