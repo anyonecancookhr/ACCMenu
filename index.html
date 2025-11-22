@@ -56,6 +56,30 @@
             to { opacity: 1; transform: translateY(0);
             }
         }
+        .card-description {
+            /* Enforce specific height for consistent card size */
+            min-height: 5rem; 
+        }
+        .location-link {
+            transition: all 0.15s ease-in-out;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.375rem;
+            display: inline-block;
+        }
+        .location-link:hover {
+            background-color: rgba(93, 63, 211, 0.1);
+        }
+        /* Collapsible icon styling */
+        details[open] .summary-icon {
+            transform: rotate(180deg);
+        }
+        .summary-icon {
+            transition: transform 0.3s ease;
+        }
+        /* Styling for nested collapsible summary */
+        .nested-summary {
+            padding-left: 0.75rem; /* Add indentation */
+        }
     </style>
 </head>
 <body class="text-gray-800">
@@ -65,19 +89,51 @@
 
     <footer class="bg-gray-100 py-6 px-4 w-full border-t border-gray-200">
         <div class="max-w-4xl mx-auto">
-            <h3 class="text-lg font-semibold mb-3">Our Locations</h3>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 text-sm">
-                <a href="https://www.google.com/maps/search/Purple+Oven+Temple+Drive" target="_blank" class="text-gray-600 hover:text-purple-oven transition duration-150 rounded-md">Temple Drive</a>
-                <a href="https://www.google.com/maps/search/Purple+Oven+Portico" target="_blank" class="text-gray-600 hover:text-purple-oven transition duration-150 rounded-md">Portico</a>
-                <a href="https://www.google.com/maps/search/Purple+Oven+Scout+Rallos" target="_blank" class="text-gray-600 hover:text-purple-oven transition duration-150 rounded-md">Scout Rallos</a>
-                <a href="https://www.google.com/maps/search/Purple+Oven+San+Juan" target="_blank" class="text-gray-600 hover:text-purple-oven transition duration-150 rounded-md">San Juan</a>
-                <a href="https://www.google.com/maps/search/Purple+Oven+San+Antonio" target="_blank" class="text-gray-600 hover:text-purple-oven transition duration-150 rounded-md">San Antonio</a>
-                <a href="https://www.google.com/maps/search/Purple+Oven+Legazpi+Village" target="_blank" class="text-gray-600 hover:text-purple-oven transition duration-150 rounded-md">Legazpi Village</a>
-                <a href="https://www.google.com/maps/search/Purple+Oven+Alabang" target="_blank" class="text-gray-600 hover:text-purple-oven transition duration-150 rounded-md">Alabang</a>
-                <a href="https://www.google.com/maps/search/Purple+Oven+Sacred+Heart" target="_blank" class="text-gray-600 hover:text-purple-oven transition duration-150 rounded-md">Sacred Heart</a>
-                <a href="https://www.google.com/maps/search/Purple+Oven+Santa+Rosa+Laguna" target="_blank" class="text-gray-600 hover:text-purple-oven transition duration-150 rounded-md">Santa Rosa - Laguna</a>
+            <h3 class="text-lg font-semibold mb-4 text-purple-oven">Location & Hours</h3>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-sm">
+                <!-- Metro Manila Locations -->
+                <div>
+                    <p class="font-bold text-gray-800 mb-1">Metro Manila (0800 - 2100)</p>
+                    <ul class="space-y-1">
+                        <li><a href="https://www.google.com/maps/search/Purple+Oven+Pasig" target="_blank" class="text-gray-600 hover:text-purple-oven location-link">Pasig</a></li>
+                        <li><a href="https://www.google.com/maps/search/Purple+Oven+San+Juan" target="_blank" class="text-gray-600 hover:text-purple-oven location-link">San Juan</a></li>
+                        <li><a href="https://www.google.com/maps/search/Purple+Oven+Alabang" target="_blank" class="text-gray-600 hover:text-purple-oven location-link">Alabang</a></li>
+                    </ul>
+                </div>
+                <!-- Makati Locations -->
+                <div>
+                    <p class="font-bold text-gray-800 mb-1">Makati</p>
+                    <ul class="space-y-1">
+                        <li><a href="https://www.google.com/maps/search/Purple+Oven+San+Antonio" target="_blank" class="text-gray-600 hover:text-purple-oven location-link">San Antonio</a></li>
+                        <li><a href="https://www.google.com/maps/search/Purple+Oven+Legazpi+Village" target="_blank" class="text-gray-600 hover:text-purple-oven location-link">Legaspi Village</a></li>
+                        <li><a href="https://www.google.com/maps/search/Purple+Oven+Sacred+Heart" target="_blank" class="text-gray-600 hover:text-purple-oven location-link">Sacred Heart</a></li>
+                    </ul>
+                </div>
+                <!-- Quezon City Locations -->
+                <div>
+                    <p class="font-bold text-gray-800 mb-1">Quezon City</p>
+                    <ul class="space-y-1">
+                        <li><a href="https://www.google.com/maps/search/Purple+Oven+Temple+Drive" target="_blank" class="text-gray-600 hover:text-purple-oven location-link">Temple Drive</a></li>
+                        <li><a href="https://www.google.com/maps/search/Purple+Oven+Scout+Rallos" target="_blank" class="text-gray-600 hover:text-purple-oven location-link">Scout Rallos</a></li>
+                    </ul>
+                </div>
+                <!-- Laguna Location & Contact -->
+                <div>
+                    <p class="font-bold text-gray-800 mb-1">Laguna (0900 - 2100)</p>
+                    <ul class="space-y-1 mb-6">
+                        <li><a href="https://www.google.com/maps/search/Purple+Oven+Santa+Rosa+Laguna" target="_blank" class="text-gray-600 hover:text-purple-oven location-link">Santa Rosa</a></li>
+                    </ul>
+
+                    <p class="font-bold text-gray-800 mb-1 mt-4">Contact (0900 - 1900)</p>
+                    <ul class="space-y-1">
+                        <li>Landline: <a href="tel:+63286314221" class="text-purple-oven font-medium">+632 8631 4221</a></li>
+                        <li>Viber: <a href="tel:+639177103227" class="text-purple-oven font-medium">+63917 710 3227</a></li>
+                        <li>Email: <a href="mailto:orderonline@purpleoven.com.ph" class="text-purple-oven font-medium">orderonline@purpleoven.com.ph</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="mt-4 text-center text-xs text-gray-500">
+            
+            <div class="mt-8 text-center text-xs text-gray-500 border-t pt-4">
                 © 2025 Anyone Can Cook,Inc. All rights reserved.
             </div>
         </div>
@@ -86,10 +142,9 @@
     <script>
         // --- Global State and Constants ---
         const APP_ROOT = document.getElementById('app');
-        // IMPORTANT: Advance order inquiries will be sent to this email address.
-        const ORDER_EMAIL = "orderonline@purpleoven.com.ph";
-        // Confirmed Email
-
+        // IMPORTANT: All order inquiries will be sent to this processing email address.
+        const ORDER_EMAIL = "orderonline@purpleoven.com.ph"; 
+        
         // Logo and Menu File Paths (User must upload these files to the same directory)
         const MAIN_LOGO_URL = "Anyone_Can_Cook_Logo.jpg";
         const GOFFA_LOGO_URL = "Goffa_Logo.png";
@@ -99,54 +154,263 @@
             view: 'landing', // 'landing', 'menu', 'order_form'
             selectedBrand: null // 'Goffa', 'PurpleOven', 'VillageCook'
         };
+
+        // --- PURPLE OVEN MENU DATA (COMPREHENSIVE) ---
+        const purpleOvenMenuData = [
+            {
+                category: "Cakes",
+                subCategories: [
+                    {
+                        name: "Light Cakes (8 In)",
+                        items: [
+                            { name: "Honeycomb Crunch Cake - Whole" },
+                            { name: "Pistachio Stardust - Whole" },
+                            { name: "Chocolate Honeycomb Crunch Cake - Whole" },
+                            { name: "Strawberry Kisses - Whole" }
+                        ]
+                    },
+                    {
+                        name: "Cakes with Nutty Layers (8 In)",
+                        items: [
+                            { name: "Classic Sans Rival - Whole" },
+                            { name: "Dark Mocha Sans Rival - Whole" },
+                            { name: "White Chocolate Sans Rival - Whole" },
+                            { name: "Rustic Chocolate Torte - Whole" },
+                            { name: "Merry Cherry Torte - Whole" },
+                            { name: "Mango Walnut Torte - Whole" },
+                            { name: "Lemon Torte - Whole" }
+                        ]
+                    },
+                    {
+                        name: "Chocolate Cakes (8 In)",
+                        items: [
+                            { name: "Grandma’s Chocolate Cake - Whole" },
+                            { name: "Chocolate Dome Cake - Whole" },
+                            { name: "Chocolate Campfire - Whole" },
+                            { name: "Classic Chocolate Cake - Whole" },
+                            { name: "Caramel Sauce - Whole" }
+                        ]
+                    },
+                    {
+                        name: "Cheesecakes (8 In)",
+                        items: [
+                            { name: "New York Cheesecake - Whole" },
+                            { name: "Blueberry Cheesecake - Whole" },
+                            { name: "Oreo Cheesecake - Whole" }
+                        ]
+                    },
+                    {
+                        name: "Tub Desserts (8x14 In)",
+                        items: [
+                            { name: "Tiramisu - Whole Tub" },
+                            { name: "Strawberries and Cream - Whole Tub" }
+                        ]
+                    },
+                    {
+                        name: "Pies (9 In)",
+                        items: [
+                            { name: "Apple Crumb Pie - Whole" },
+                            { name: "Banoffee Pie - Whole" }
+                        ]
+                    },
+                    {
+                        name: "Little Cakes and Pies",
+                        items: [
+                            { name: "Little Carrot Cake - PC" },
+                            { name: "Chocolate Lava Cake - PC" },
+                            { name: "Little Banoffee Pie - PC" },
+                            { name: "Little Apple Crumb Pie - PC" },
+                            { name: "Little Pecan Pie - PC" }
+                        ]
+                    }
+                ]
+            },
+            {
+                category: "Bars",
+                subCategories: [
+                    {
+                        name: "Bar Boxes",
+                        items: [
+                            { name: "Mango Bars - Half Box (16 pcs)" },
+                            { name: "Lemon Bars - Half Box (16 pcs)" },
+                            { name: "Double Chocolate Brownies - Half Box (16 pcs)" },
+                            { name: "Fudge Brownies - Half Box (16 pcs)" },
+                            { name: "Food for the Gods - Half Box (16 pcs)" },
+                            { name: "Chocolate Revel Bars - Half Box (16 pcs)" },
+                            { name: "Mango Bars - Whole Box (32 pcs)" },
+                            { name: "Lemon Bars - Whole Box (32 pcs)" },
+                            { name: "Double Chocolate Brownies - Whole Box (32 pcs)" },
+                            { name: "Fudge Brownies - Whole Box (32 pcs)" },
+                            { name: "Food for the Gods - Whole Box (32 pcs)" },
+                            { name: "Chocolate Revel Bars - Whole Box (32 pcs)" }
+                        ]
+                    }
+                ]
+            },
+            {
+                category: "Cookies",
+                subCategories: [
+                    {
+                        name: "Cookie Items",
+                        items: [
+                            { name: "Reese’s Peanut Butter Chip Cookie - PC" },
+                            { name: "Double Chocolate Chip Cookie - PC" },
+                            { name: "Chocolate Macadamia Cookie - PC" },
+                            { name: "Chocolate Dipped Cookie - PC" },
+                            { name: "Oatmeal Raisin Cookie - PC" },
+                            { name: "White Chunk Chocolate Cookie - PC" },
+                            { name: "White Chocolate Cashew Cookie - PC" },
+                            { name: "Chocolate Crinkles - Box of 12 pcs" }
+                        ]
+                    }
+                ]
+            },
+            {
+                category: "Loaves",
+                subCategories: [
+                    {
+                        name: "Loaf Bread",
+                        items: [
+                            { name: "Banana Loaf - Loaf" },
+                            { name: "Carrot Walnut Loaf - Loaf" },
+                            { name: "Orange Almond Loaf - Loaf" },
+                            { name: "Pistachio Lime Loaf - Loaf" },
+                            { name: "Chocolate Banana Walnut Loaf - Loaf" }
+                        ]
+                    }
+                ]
+            },
+            {
+                category: "Snack Packs",
+                subCategories: [
+                    {
+                        name: "Snack Packs",
+                        items: [
+                            { name: "Chocolate Carousel - Pack" },
+                            { name: "Purple Crumble - Pack" }
+                        ]
+                    }
+                ]
+            },
+            {
+                category: "Bread and Pastries",
+                subCategories: [
+                    {
+                        name: "Quiches",
+                        items: [
+                            { name: "Broccoli and Cheese Quiche - PC" },
+                            { name: "Quiche Lorraine - PC" }
+                        ]
+                    },
+                    {
+                        name: "Flaky Pastries",
+                        items: [
+                            { name: "Chicken Curry Turnover - PC" },
+                            { name: "Chili con Carne Turnover - PC" },
+                            { name: "Chorizo Roll - PC" },
+                            { name: "Sausage Puff - PC" },
+                            { name: "Spinach Danish - PC" },
+                            { name: "Tuna Turnover - PC" }
+                        ]
+                    },
+                    {
+                        name: "Soft Savory Buns",
+                        items: [
+                            { name: "Adobo Flakes Bun - PC" },
+                            { name: "Pork Asado Bun - PC" },
+                            { name: "Corned Beef Bun - PC" },
+                            { name: "Tuna Bun - PC" },
+                            { name: "Ham and Cheese Bun - PC" },
+                            { name: "Sausage Bun - PC" }
+                        ]
+                    },
+                    {
+                        name: "Croissants",
+                        items: [
+                            { name: "Butter Croissant - PC" },
+                            { name: "Ham and Cheese Croissant - PC" },
+                            { name: "Chocolate Croissant - PC" }
+                        ]
+                    },
+                    {
+                        name: "Sweet Breads",
+                        items: [
+                            { name: "Cheese Roll - PC" },
+                            { name: "Ensaymada - PC" },
+                            { name: "Soft Cinnamon Roll - PC" }
+                        ]
+                    },
+                    {
+                        name: "Artisan Breads",
+                        items: [
+                            { name: "Cinnamon Raisin Pretzel - PC" },
+                            { name: "Parmesan Pretzel - PC" },
+                            { name: "Sourdough - Loaf" },
+                            { name: "Raisin Bread - Loaf" }
+                        ]
+                    }
+                ]
+            },
+            {
+                category: "Reusable Bag",
+                subCategories: [
+                    {
+                        name: "Bags",
+                        items: [
+                            { name: "Reusable Bag - Large" },
+                            { name: "Reusable Bag - Small" }
+                        ]
+                    }
+                ]
+            }
+        ];
+
         const brands = {
+            PurpleOven: {
+                theme: 'purple-white',
+                description: `At Purple Oven, we bake all day everyday with real eggs, cream and butter. And we serve them while they’re at their best. It makes us happy to have you bring home the freshest and finest products we can offer.`,
+                logo: PO_LOGO_URL,
+                menuFiles: Array.from({ length: 10 }, (_, i) => `PO_Menu-images-${i}.jpg`)
+            },
             Goffa: {
                 theme: 'black-white',
                 description: 'Gourmet home-cooked meals, specializing in comfort food classics.',
                 logo: GOFFA_LOGO_URL,
-                // Menu files changed from PDF to JPG array
                 menuFiles: Array.from({ length: 6 }, (_, i) => `Goffa_Boxed_Orders-images-${i}.jpg`)
-            },
-            PurpleOven: {
-                theme: 'purple-white',
-                description: 'The finest baked goods, cakes, and pastries, known for their quality.',
-                logo: PO_LOGO_URL,
-                // Menu files changed from PDF to JPG array
-                menuFiles: Array.from({ length: 10 }, (_, i) => `PO_Menu-images-${i}.jpg`)
             },
             VillageCook: {
                 theme: 'black-white',
                 description: 'Everyday meals and catering services with a focus on fresh, local ingredients.',
                 logo: VC_LOGO_URL,
-                // Menu files changed from PDF to JPG array
+                description: 'Everyday meals and catering services with a focus on fresh, local ingredients.',
                 menuFiles: Array.from({ length: 5 }, (_, i) => `Village_Cook_Menu-images-${i}.jpg`)
             }
         };
-        const timeSlots = Array.from({ length: 12 }, (_, i) => `${(i + 8) % 12 === 0 ? 12 : (i + 8) % 12} ${i + 8 < 12 ? 'AM' : 'PM'}`).slice(0, 12);
+        // Time slots adjusted for new 9 AM start for Order Processing
+        const timeSlots = Array.from({ length: 11 }, (_, i) => `${(i + 9) % 12 === 0 ? 12 : (i + 9) % 12} ${i + 9 < 12 ? 'AM' : 'PM'}`).slice(0, 11); // 9 AM to 7 PM for pick up
         const pickUpLocations = [
-            'Temple Drive', 'Portico', 'Scout Rallos', 'San Juan', 'San Antonio',
-            'Legazpi Village', 'Alabang', 'Sacred Heart', 'Santa Rosa - Laguna'
+            'Temple Drive (QC)', 'Scout Rallos (QC)', 'Portico (Pasig)', 'San Juan (MM)', 
+            'San Antonio (Makati)', 'Legazpi Village (Makati)', 'Sacred Heart (Makati)', 
+            'Alabang (MM)', 'Santa Rosa - Laguna'
         ];
+        
         // --- View Navigation Functions ---
 
-        /** Sets the state to the landing page and triggers a render.
-*/
+        /** Sets the state to the landing page and triggers a render. */
         function showLanding() {
             state.view = 'landing';
             state.selectedBrand = null;
             render();
         }
 
-        /** Sets the state to a specific menu view and triggers a render.
-*/
+        /** Sets the state to a specific menu view and triggers a render. */
         function showMenu(brand) {
             state.view = 'menu';
             state.selectedBrand = brand;
             render();
         }
 
-        /** Sets the state to the advance order form and triggers a render.
-*/
+        /** Sets the state to the advance order form and triggers a render. */
         function showOrder() {
             state.view = 'order_form';
             render();
@@ -154,76 +418,64 @@
 
         // --- HTML Rendering Functions ---
 
-        /** Renders the Landing Page content.
-*/
+        /** Renders the Landing Page content. */
         function renderLanding() {
-            // Added justify-center for the landing page for visual appeal
             APP_ROOT.classList.add('justify-center');
             return `
                 <div class="text-center animate-fadeIn w-full">
-                    <!-- Main Logo: Streamlined for mobile. Uses max-width instead of fixed width to prevent left-leaning on mobile -->
+                    <!-- Main Logo -->
                     <img src="${MAIN_LOGO_URL}" onerror="this.src='https://placehold.co/300x100/333/fff?text=Anyone+Can+Cook'"
                         alt="Anyone Can Cook, Inc. Logo" class="mx-auto mb-8 h-auto max-h-[336px] w-full max-w-[448px] object-contain">
                     
-                    <h1 class="text-5xl font-extrabold tracking-tight mb-4 text-gray-900 hidden">
-                        Anyone Can Cook, Inc.
-                    </h1>
-            
-                    <p class="text-xl text-gray-500 mb-12">Welcome!
+                    <p class="text-xl text-gray-500 mb-8">Welcome!
 Find your next delicious meal by choosing one of our kitchens below.</p>
 
-                    <!-- Added items-center to streamline alignment on mobile flex-col -->
-                    <div class="flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-12">
-                        <!-- Reordered brands: PurpleOven first, then Goffa, then VillageCook -->
+                    <!-- Brand Cards -->
+                    <div class="flex flex-col md:flex-row justify-center items-stretch space-y-8 md:space-y-0 md:space-x-12 mb-10">
+                        <!-- Brands in requested order: PurpleOven, Goffa, VillageCook -->
                         ${['PurpleOven', 'Goffa', 'VillageCook'].map(brand => {
                             const brandData = brands[brand];
-     
-                            const logoClass = brandData.theme === 'purple-white' ? 'border-2 border-purple-oven hover:bg-purple-100' : 'border border-gray-300 hover:bg-gray-50';
-                            const titleColor = brandData.theme === 'purple-white' ? 'text-purple-oven' : 'text-gray-900';
+                            const isPurple = brand === 'PurpleOven';
+                            const logoClass = isPurple ? 'border-2 border-purple-oven hover:bg-purple-100' : 'border border-gray-300 hover:bg-gray-50';
                             
                             return `
                                 <div onclick="showMenu('${brand}')"
-                                    class="cursor-pointer p-6 rounded-xl shadow-lg transition duration-300 transform hover:scale-105 w-full max-w-xs md:w-56 ${logoClass}">
+                                    class="cursor-pointer p-6 rounded-xl shadow-lg transition duration-300 transform hover:scale-105 w-full max-w-xs md:w-64 ${logoClass} flex flex-col justify-between">
                                     
                                     <div class="flex justify-center mb-4">
-                                        <img src="${brandData.logo}" onerror="this.src='https://placehold.co/64x64/eee/333?text=${brand}'"
+                                        <img src="${brandData.logo}" onerror="this.src='https://placehold.co/125x125/eee/333?text=${brand}'"
                                             alt="${brand} Logo" class="h-[125px] w-[125px] object-contain">
                                     </div>
                                     
-                                    <p class="text-sm text-gray-500">${brandData.description}</p>
+                                    <p class="text-sm text-gray-600 card-description text-center whitespace-pre-line">${brandData.description}</p>
                                 </div>
                             `;
                         }).join('')}
                     </div>
+
+                    <!-- See our Menu Button -->
+                    <button onclick="showMenu('PurpleOven')"
+                            class="px-8 py-3 text-lg font-semibold text-white rounded-full bg-purple-oven transition duration-300 hover:bg-indigo-700 shadow-xl mt-8">
+                        See Our Menu
+                    </button>
                 </div>
             `;
         }
 
-        /** Renders the Menu View content for the selected brand, using an array of image files for the menu.
-*/
+        /** Renders the Menu View content for the selected brand, using an array of image files for the menu. */
         function renderMenu(brand) {
-            // Removed justify-center for this view to prevent content being pushed off-screen
             APP_ROOT.classList.remove('justify-center');
             const data = brands[brand];
             const isPurple = brand === 'PurpleOven';
             const themeClass = isPurple ? 'text-purple-oven border-purple-oven' : 'text-gray-900 border-gray-800';
             const buttonClass = isPurple ? 'bg-purple-oven hover:bg-indigo-700' : 'bg-gray-800 hover:bg-black';
 
-            // Menu rendering logic updated to use multiple JPG images instead of a PDF embed.
+            // Menu rendering logic updated
             const menuContent = `
-                <div class="flex justify-between items-center mb-4">
-                    <div class="flex-1"></div>
-            
+                <div class="flex justify-center items-center mb-6">
                     <img src="${data.logo}"
                             onerror="this.src='https://placehold.co/80x80/eee/333?text=${brand}'"
                             alt="${brand} Logo" class="h-20 w-20 object-contain mx-auto">
-            
-                    <div class="flex-1 flex justify-end">
-                        <button onclick="showOrder()"
-                            class="px-3 py-1 sm:px-6 sm:py-2 text-xs sm:text-base font-semibold text-white rounded-full transition duration-300 shadow-xl ${buttonClass}">
-                            Advance Order
-                        </button>
-                    </div>
                 </div>
 
                 <div class="h-[calc(100vh-280px)] max-h-[80vh] w-full border ${themeClass} rounded-xl overflow-y-auto menu-scroll shadow-inner bg-gray-50">
@@ -246,7 +498,7 @@ Find your next delicious meal by choosing one of our kitchens below.</p>
                     </button>
                     <button onclick="showOrder()"
                             class="px-6 py-2 text-base font-semibold text-white rounded-full transition duration-300 shadow-md ${buttonClass} shadow-lg">
-                        Advance Order
+                        Order Now
                     </button>
                 </div>
             `;
@@ -261,78 +513,151 @@ Find your next delicious meal by choosing one of our kitchens below.</p>
         
         // --- Form Functions ---
 
-        /** Renders the Advance Order Form content.
-*/
+        /** Toggles the quantity input based on the checkbox state. */
+        function toggleQuantity(checkbox) {
+            const qtyInputId = `qty_${checkbox.id}`;
+            const qtyInput = document.getElementById(qtyInputId);
+            if (qtyInput) {
+                qtyInput.disabled = !checkbox.checked;
+                if (checkbox.checked) {
+                    qtyInput.focus();
+                    qtyInput.value = '1'; // Default to 1 when checked
+                } else {
+                    qtyInput.value = '0'; // Set to 0 when unchecked
+                }
+            }
+        }
+
+        /** Renders the complex item selection for Purple Oven with collapsible categories. */
+        function renderPurpleOvenMenuSelection() {
+            let html = '';
+            
+            // Add instruction text
+            html += `<p class="text-sm text-gray-500 mb-4">Check the items you want to order and input the desired quantity.</p>`;
+
+            purpleOvenMenuData.forEach((cat, catIndex) => {
+                const categoryId = `cat_${catIndex}`;
+                
+                // Use <details> for collapsible main category. Open the first one by default.
+                html += `<details class="bg-gray-50 p-0 rounded-xl mt-4 border border-gray-200 shadow-sm overflow-hidden" ${catIndex === 0 ? 'open' : ''}>
+                            <summary class="flex items-center justify-between cursor-pointer p-4 hover:bg-gray-100 rounded-xl rounded-b-none">
+                                <h3 class="text-lg font-bold text-purple-oven">${cat.category}</h3>
+                                <svg class="w-5 h-5 text-gray-600 summary-icon" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </summary>
+
+                            <div class="px-4 pb-4 space-y-4 pt-2">`; // Content for the main category
+
+                cat.subCategories.forEach((subCat, subCatIndex) => {
+                    const subCatId = `subcat_${catIndex}_${subCatIndex}`;
+                    
+                    // Use nested <details> for collapsible subcategory
+                    html += `<details class="bg-white rounded-lg shadow-sm border border-gray-100 p-0" ${catIndex === 0 && subCatIndex === 0 ? 'open' : ''}>
+                                <summary class="flex items-center justify-between cursor-pointer p-3 hover:bg-gray-50 nested-summary rounded-lg">
+                                    <p class="font-semibold text-gray-700 text-sm">${subCat.name}</p>
+                                    <svg class="w-4 h-4 text-gray-500 summary-icon" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </summary>
+                                
+                                <div class="px-3 pb-3 pt-2 space-y-3">`; // Content for the sub category
+
+                    subCat.items.forEach((item, itemIndex) => {
+                        const itemId = `item_${catIndex}_${subCatIndex}_${itemIndex}`;
+                        // The Quantity text (e.g., 'Whole', 'PC') is part of the item name
+                        html += `<div class="flex items-center space-x-4">
+                                    <label class="flex-1 inline-flex items-center cursor-pointer select-none">
+                                        <input type="checkbox" id="${itemId}" name="orderItem" value="${item.name}"
+                                               class="h-5 w-5 text-purple-oven rounded border-gray-300 focus:ring-purple-oven"
+                                               onchange="toggleQuantity(this)">
+                                        <span class="ml-3 text-gray-800 text-sm">${item.name}</span>
+                                    </label>
+                                    <!-- Quantity input is an editable number field, disabled/enabled by the checkbox -->
+                                    <input type="number" name="quantity_${item.name}" placeholder="0" min="1" value="0" disabled
+                                           class="w-20 p-2 border border-gray-300 rounded-lg text-center text-sm focus:ring-purple-oven disabled:bg-gray-100 disabled:text-gray-400"
+                                           id="qty_${itemId}">
+                                </div>`;
+                    });
+
+                    html += `</div></details>`;
+                });
+                
+                html += `   </div>
+                        </details>`;
+            });
+            return html;
+        }
+
+        /** Renders the Advance Order Form content. */
         function renderOrderForm() {
-            // Removed justify-center for this view
             APP_ROOT.classList.remove('justify-center');
-            const isPurple = state.selectedBrand === 'PurpleOven';
+            const brand = state.selectedBrand;
+            const data = brands[brand];
+            const isPurple = brand === 'PurpleOven';
             const themeClass = isPurple ? 'border-purple-oven' : 'border-gray-800';
+            const buttonClass = isPurple ? 'bg-purple-oven hover:bg-indigo-700' : 'bg-gray-800 hover:bg-black';
+
             // Function to generate Time Slot options
             const getTimeOptions = () => timeSlots.map(time => `<option value="${time}">${time}</option>`).join('');
             // Function to generate Pick Up Location options
             const getLocationOptions = () => pickUpLocations.map(loc => `<option value="${loc}">${loc}</option>`).join('');
+            
+            // Determine order fields based on brand
+            const orderFieldsHtml = isPurple 
+                ? renderPurpleOvenMenuSelection()
+                : `<textarea id="orderSummary" name="orderSummary" rows="4" required
+                                placeholder="Type the exact items and quantity (e.g., Signature Lasagna x 2, Blueberry Cheesecake x 1)"
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent"></textarea>
+                    <p class="text-xs text-gray-500 mt-2">Since the detailed menu is only available for Purple Oven, please manually list your items for ${brand}.</p>`;
+
             return `
                 <div class="w-full max-w-4xl p-8 bg-white rounded-2xl shadow-2xl animate-fadeIn">
-                    <h1 class="text-3xl font-bold mb-6 text-center">Advance Order Inquiry</h1>
+                    <div class="flex flex-col items-center mb-6">
+                         <img src="${data.logo}"
+                            onerror="this.src='https://placehold.co/80x80/eee/333?text=${brand}'"
+                            alt="${brand} Logo" class="h-20 w-20 object-contain mb-3">
+                        <h1 class="text-3xl font-bold text-gray-900">Place an Order</h1>
+                    </div>
                     
                     <div class="bg-indigo-50 p-4 rounded-xl mb-6 border border-indigo-200">
                         <h2 class="text-lg font-semibold text-indigo-800 mb-1">Office Hours</h2>
                         <p class="text-indigo-700">
-                            Our team is available to confirm your advance orders daily from
-                            <span class="font-bold">8:00 AM to 7:00 PM.</span>
+                            Our team is available to process your orders daily from <span class="font-bold">9:00 AM to 7:00 PM.</span>
                         </p>
                     </div>
 
                     <div class="mb-8 border-b pb-6">
-                        <h2 class="text-xl font-semibold mb-3">Option 1: Call Us</h2>
-                        <p class="text-gray-600 mb-4">For immediate assistance or to discuss your order, please give us a call.</p>
+                        <h2 class="text-xl font-semibold mb-3">Option 1: Call Us (Orders for Today)</h2>
+                        <p class="text-gray-600 mb-4">For immediate assistance and orders for today, please give us a call:</p>
 
                         <div class="space-y-3">
-                            <a href="tel:86314221" class="flex items-center justify-center sm:justify-start text-2xl font-bold text-green-700 hover:text-green-800 transition duration-150 p-3 rounded-lg bg-green-100 shadow-md">
-                                📞 Landline: 8631-4221
+                            <a href="tel:+63286314221" class="flex items-center justify-center sm:justify-start text-2xl font-bold text-green-700 hover:text-green-800 transition duration-150 p-3 rounded-lg bg-green-100 shadow-md">
+                                📞 Landline: +632 8631 4221
                             </a>
                             <a href="tel:+639177103227" class="flex items-center justify-center sm:justify-start text-xl font-semibold text-green-600 hover:text-green-700 transition duration-150 p-3 rounded-lg bg-green-50">
-                                📱 Mobile: +63 917-710-3227
+                                📱 Mobile / Viber: +63917 710 3227
                             </a>
                         </div>
                     </div>
 
                     <form id="orderForm" onsubmit="handleFormSubmission(event)">
-                        <h2 class="text-xl font-semibold mb-4">Option 2: Send an Inquiry</h2>
-                        <p class="text-gray-600 mb-6">Fill out the form below to send us an order inquiry. We will contact you to confirm details.</p>
+                        <h2 class="text-xl font-semibold mb-3">Option 2: Fill Out Form (Orders for Tomorrow and Onwards)</h2>
+                        <p class="text-gray-600 mb-6">For orders for tomorrow and onwards, fill up the form below. We will contact you to 
+                        confirm the details and availability of your orders before sending the billing.</p>
 
+                        <input type="hidden" name="orderFor" value="${brand}">
+                        
+                        <!-- 1. Full Name, 2. Contact Number, 3. Email Address (Updated Sequence) -->
                         <div class="form-grid">
-                            <input type="text" name="fullName" placeholder="Full Name *" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
-                            <input type="email" name="email" placeholder="Email *" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
-                            <input type="tel" name="phone" placeholder="Phone Number *" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
+                            <input type="text" name="fullName" placeholder="1. Full Name *" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
+                            <input type="tel" name="phone" placeholder="2. Contact Number *" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
+                            <input type="email" name="email" placeholder="3. Email Address *" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent col-span-full sm:col-span-1">
                         </div>
 
-                        <div class="form-grid mt-4">
-                            <input type="date" name="dateNeeded" placeholder="Date Needed *" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
-                            <select name="timeNeeded" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
-                                <option value="" disabled selected>Time Needed (8 AM - 7 PM) *</option>
-                                ${getTimeOptions()}
-                            </select>
-                        </div>
-
+                        <!-- 4. Order Type: Pick Up / Delivery -->
                         <div class="mt-6">
-                            <label class="block text-sm font-medium mb-2">Order For:</label>
-                            <p class="p-3 bg-gray-100 border border-gray-300 rounded-lg text-lg font-semibold text-gray-700">
-                                ${state.selectedBrand ? state.selectedBrand : 'Brand Not Selected (Please Go Back)'}
-                            </p>
-                            <input type="hidden" name="orderFor" value="${state.selectedBrand || 'Unspecified Brand'}">
-                        </div>
-
-                        <div class="mt-6">
-                            <label for="orderSummary" class="block text-sm font-medium mb-2">Order Summary: *</label>
-                            <textarea id="orderSummary" name="orderSummary" rows="4" required
-                                            placeholder="Type the exact items and quantity (e.g., Signature Lasagna x 2, Blueberry Cheesecake x 1)"
-                                            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent"></textarea>
-                        </div>
-
-                        <div class="mt-6">
-                            <label class="block text-sm font-medium mb-2">Order Type: *</label>
+                            <label class="block text-sm font-medium mb-2">4. Order Type: Pick Up / Delivery *</label>
                             <div class="flex gap-6 mb-4">
                                 <label class="inline-flex items-center">
                                     <input type="radio" name="orderType" value="Pick Up" checked
@@ -349,26 +674,53 @@ Find your next delicious meal by choosing one of our kitchens below.</p>
                                 </label>
                             </div>
 
+                            <!-- 4a. Store Location / Delivery Address -->
                             <div id="pickupFields" class="w-full">
                                 <select name="pickUpLocation" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent w-full">
-                                    <option value="" disabled selected>Select Pick Up Location *</option>
+                                    <option value="" disabled selected>Store Location *</option>
                                     ${getLocationOptions()}
                                 </select>
                             </div>
                             
                             <div id="deliveryFields" class="form-grid mt-4 hidden">
                                 <input type="text" name="address" placeholder="Delivery Address *" class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
-                                <input type="text" name="landmark" placeholder="Landmark / Notes *" class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
+                                <input type="text" name="landmark" placeholder="Landmark / Notes (Optional)" class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
                             </div>
                         </div>
 
+                        <!-- 5. Order Date & Time -->
+                        <div class="mt-6 form-grid">
+                            <input type="date" name="dateNeeded" placeholder="5. Order Date *" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
+                            <select name="timeNeeded" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent">
+                                <option value="" disabled selected>5. Order Time (9 AM - 7 PM) *</option>
+                                ${getTimeOptions()}
+                            </select>
+                        </div>
+
+                        <!-- 6. Orders: (Product and Quantity) -->
+                        <div class="mt-6">
+                            <label class="block text-sm font-medium mb-2">6. Orders: (Product and Quantity) *</label>
+                            ${orderFieldsHtml}
+                        </div>
+
+                        <!-- 7. Notes: (Paragraph box) -->
+                        <div class="mt-6">
+                            <label for="notes" class="block text-sm font-medium mb-2">7. Notes: (Optional)</label>
+                            <textarea id="notes" name="notes" rows="3" 
+                                            placeholder="Special instructions or other notes"
+                                            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-oven focus:border-transparent"></textarea>
+                        </div>
+
+
                         <div class="mt-10 text-center">
-                            <p class="text-sm text-red-500 font-medium mb-3">
-                                Important Notice: This is an inquiry form. No final price is set, and no payment will be collected. Our office will contact you to confirm your order and provide final details.
+                            <p class="text-sm text-red-600 font-medium mb-4 p-3 border border-red-300 bg-red-50 rounded-lg">
+                                Important Notice: We shall check the availability of your order prior to sending the billing. As we only 
+                                bake in limited quantities daily, we ask for your understanding that orders may only be processed and 
+                                set aside for you after full payment has been made and confirmed by our team.
                             </p>
                             <button type="submit"
-                                    class="px-12 py-4 text-xl font-bold text-white rounded-full bg-purple-oven transition duration-300 hover:bg-indigo-700 shadow-xl">
-                                Send Inquiry
+                                    class="px-12 py-4 text-xl font-bold text-white rounded-full ${buttonClass} transition duration-300 shadow-xl">
+                                Send Order
                             </button>
                             <p class="text-xs text-gray-400 mt-2">Inquiry will be sent to ${ORDER_EMAIL}</p>
                         </div>
@@ -381,9 +733,9 @@ Find your next delicious meal by choosing one of our kitchens below.</p>
                 <div id="submissionModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
                     <div class="bg-white p-8 rounded-xl shadow-2xl max-w-sm text-center">
                         <div class="text-green-500 text-5xl mb-4">🎉</div>
-                        <h3 class="text-2xl font-bold mb-3">Inquiry Sent!</h3>
+                        <h3 class="text-2xl font-bold mb-3">Order Inquiry Sent!</h3>
                         <p class="text-gray-600 mb-6">
-                            Your order inquiry has been processed. Please check your email and phone; our team will contact you to confirm the details.
+                            We have received your order inquiry. Our team will contact you from 9 AM - 7 PM to confirm the details and send the billing.
                         </p>
                         <button onclick="closeModal()" class="px-6 py-2 bg-purple-oven text-white rounded-lg hover:bg-indigo-700 transition duration-150">
                             Close
@@ -393,8 +745,7 @@ Find your next delicious meal by choosing one of our kitchens below.</p>
             `;
         }
 
-        /** Toggles the visibility and required status of Pick Up vs. Delivery fields.
-*/
+        /** Toggles the visibility and required status of Pick Up vs. Delivery fields. */
         function toggleDeliveryFields(isDelivery) {
             const pickupFields = document.getElementById('pickupFields');
             const deliveryFields = document.getElementById('deliveryFields');
@@ -408,7 +759,6 @@ Find your next delicious meal by choosing one of our kitchens below.</p>
                 
                 // Set required for visible fields
                 deliveryAddress.required = true;
-                deliveryLandmark.required = true;
                 pickupSelect.required = false;
             } else {
                 // Show Pick Up, Hide Delivery
@@ -417,63 +767,135 @@ Find your next delicious meal by choosing one of our kitchens below.</p>
 
                 // Set required for visible fields
                 deliveryAddress.required = false;
-                deliveryLandmark.required = false;
                 pickupSelect.required = true;
             }
+            // Landmark is optional now
+            deliveryLandmark.required = false;
         }
 
-        /** Handles form submission by constructing a mailto link with the required subject format.
-*/
+        /** Handles form submission by constructing a mailto link with the required subject format. */
         function handleFormSubmission(event) {
             event.preventDefault();
             const form = event.target;
             const data = new FormData(form);
             const formObject = {};
-            // Collect all standard fields (including the hidden 'orderFor' input)
-            data.forEach((value, key) => {
-                formObject[key] = value;
-            });
-            // The logic to collect 'orderFor' checkboxes (lines 418, 419 in old code) has been removed, 
-            // as the value is now captured from the hidden input.
+            data.forEach((value, key) => { formObject[key] = value; });
 
-            // --- Subject Line and Order Number Generation (New Logic) ---
+            const isPurple = state.selectedBrand === 'PurpleOven';
+            let orderSummaryText = '';
+
+            if (isPurple) {
+                // Collect selected Purple Oven items and their quantities
+                const selectedItems = form.querySelectorAll('input[name="orderItem"]:checked');
+                if (selectedItems.length === 0) {
+                    // Use a message box instead of alert()
+                    const messageBox = document.createElement('div');
+                    messageBox.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
+                    messageBox.innerHTML = `
+                        <div class="bg-white p-6 rounded-xl shadow-2xl max-w-sm text-center border-t-4 border-red-500">
+                            <h3 class="text-xl font-bold text-red-700 mb-3">Missing Items</h3>
+                            <p class="text-gray-600 mb-4">Please select at least one item and enter a quantity greater than zero.</p>
+                            <button onclick="this.parentNode.parentNode.remove()" class="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-150">
+                                OK
+                            </button>
+                        </div>
+                    `;
+                    document.body.appendChild(messageBox);
+                    return;
+                }
+                
+                // Generate a concise list of only the items that were checked AND have a quantity > 0
+                const orderedItems = Array.from(selectedItems).map(itemCheckbox => {
+                    const itemName = itemCheckbox.value;
+                    const qtyInputId = `qty_${itemCheckbox.id}`;
+                    // Directly access the value from the form element by its ID
+                    const qty = parseInt(document.getElementById(qtyInputId).value, 10) || 0; 
+                    
+                    if (qty > 0) {
+                        return `- ${itemName} x ${qty}`;
+                    }
+                    return null; // Ignore items with 0 quantity
+                }).filter(item => item !== null);
+
+                if (orderedItems.length === 0) {
+                    // Use a message box instead of alert()
+                    const messageBox = document.createElement('div');
+                    messageBox.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
+                    messageBox.innerHTML = `
+                        <div class="bg-white p-6 rounded-xl shadow-2xl max-w-sm text-center border-t-4 border-red-500">
+                            <h3 class="text-xl font-bold text-red-700 mb-3">Missing Quantity</h3>
+                            <p class="text-gray-600 mb-4">Please enter a quantity greater than zero for the selected items.</p>
+                            <button onclick="this.parentNode.parentNode.remove()" class="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-150">
+                                OK
+                            </button>
+                        </div>
+                    `;
+                    document.body.appendChild(messageBox);
+                    return;
+                }
+                
+                orderSummaryText = orderedItems.join('\n');
+
+            } else {
+                // Use the generic textarea for other brands
+                orderSummaryText = formObject.orderSummary;
+                if (!orderSummaryText || orderSummaryText.trim() === '') {
+                    // Use a message box instead of alert()
+                    const messageBox = document.createElement('div');
+                    messageBox.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
+                    messageBox.innerHTML = `
+                        <div class="bg-white p-6 rounded-xl shadow-2xl max-w-sm text-center border-t-4 border-red-500">
+                            <h3 class="text-xl font-bold text-red-700 mb-3">Missing Order Details</h3>
+                            <p class="text-gray-600 mb-4">Please enter your order details in the Orders box.</p>
+                            <button onclick="this.parentNode.parentNode.remove()" class="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-150">
+                                OK
+                            </button>
+                        </div>
+                    `;
+                    document.body.appendChild(messageBox);
+                    return;
+                }
+            }
+
+
+            // --- Subject Line and Order Number Generation ---
             const now = new Date();
             const dateString = now.toISOString().split('T')[0]; // YYYY-MM-DD
-            
-            // Generate a simple, timestamp-based ID (YYYYMMDD-HHMMSS)
-            // This acts as a unique, resetting-ish order number substitute without a database.
             const orderID = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}-${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}${String(now.getSeconds()).padStart(2, '0')}`;
-            // Get the brand selected on the menu page, which is preferred for the subject
             const orderBrand = state.selectedBrand || 'Unspecified Brand';
 
             // Subject Format: Online Advance Order - [Date] - [Order Number] - [Brand]
             const subject = encodeURIComponent(`Online Advance Order - ${dateString} - ${orderID} - ${orderBrand}`);
+            
             // Construct the email body
             const body = `
 **Anyone Can Cook, Inc. - Order Inquiry (ID: ${orderID})**
 
 --- Customer Details ---
 Full Name: ${formObject.fullName}
-Email: ${formObject.email}
-Phone: ${formObject.phone}
+Contact Number: ${formObject.phone}
+Email Address: ${formObject.email}
 
 --- Order Details ---
-Date Needed: ${formObject.dateNeeded}
-Time Needed: ${formObject.timeNeeded}
-Order For (Brands): ${formObject.orderFor}
+Order For (Brand): ${formObject.orderFor}
 Order Type: ${formObject.orderType}
+Order Date: ${formObject.dateNeeded}
+Order Time: ${formObject.timeNeeded}
 
 ${formObject.orderType === 'Pick Up'
     ?
-`Pick Up Location: ${formObject.pickUpLocation}`
-    : `Delivery Address: ${formObject.address}\nLandmark: ${formObject.landmark}`
+`Store Location: ${formObject.pickUpLocation}`
+    : `Delivery Address: ${formObject.address}\nLandmark/Notes: ${formObject.landmark || 'N/A'}`
 }
 
---- Order Summary (Items & Quantity) ---
-${formObject.orderSummary}
+--- Orders (Items & Quantity) ---
+${orderSummaryText}
+
+--- Notes ---
+${formObject.notes || 'N/A'}
 
 --- Confirmation Notice ---
-We will call you soon to confirm the order and total price.
+Our office will contact you soon to confirm the details and send the billing.
 Thank you!
             `.trim();
 
@@ -481,20 +903,24 @@ Thank you!
             
             // Create the mailto link
             const mailtoUrl = `mailto:${ORDER_EMAIL}?subject=${subject}&body=${encodedBody}`;
+            
             // Open email client
             window.open(mailtoUrl, '_blank');
+            
             // Show custom submission confirmation modal
             document.getElementById('submissionModal').classList.remove('hidden');
-            form.reset();
-            // Clear the form after submission
-            toggleDeliveryFields(false);
-            // Reset to pick-up view
+            form.reset(); 
+            // Reset to pick-up view and clear quantities/checks
+            toggleDeliveryFields(false); 
+            form.querySelectorAll('input[type="checkbox"][name="orderItem"]').forEach(chk => {
+                chk.checked = false;
+                toggleQuantity(chk);
+            });
 
             return false;
         }
 
-        /** Closes the submission modal.
-*/
+        /** Closes the submission modal. */
         function closeModal() {
             document.getElementById('submissionModal').classList.add('hidden');
             showLanding(); // Return to landing page after closing modal
@@ -503,10 +929,10 @@ Thank you!
 
         // --- Main Render Loop ---
 
-        /** The central function that draws the UI based on the current state.
-*/
+        /** The central function that draws the UI based on the current state. */
         function render() {
             let htmlContent = '';
+            
             switch (state.view) {
                 case 'landing':
                     htmlContent = renderLanding();
